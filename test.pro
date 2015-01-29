@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     inputvaluepinform.cpp \
     inputimpulsepinform.cpp \
     outputvaluepinform.cpp \
-    outputimpulsepinform.cpp
+    outputimpulsepinform.cpp \
+    nodedragger.cpp
 
 HEADERS  += mainwindow.h \
     nodeform.h \
     inputvaluepinform.h \
     inputimpulsepinform.h \
     outputvaluepinform.h \
-    outputimpulsepinform.h
+    outputimpulsepinform.h \
+    nodedragger.h
 
 FORMS    += mainwindow.ui \
     nodeform.ui \

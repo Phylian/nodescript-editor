@@ -44,7 +44,7 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: black;</string>
+      <string notr="true">background-color: #e74c3c;</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>

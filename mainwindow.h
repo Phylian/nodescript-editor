@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "nodedragger.h"
+
 class NodeForm;
 
 namespace Ui {
@@ -21,6 +23,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    NodeDragger nodeDragger;
 };
 
 #endif // MAINWINDOW_H

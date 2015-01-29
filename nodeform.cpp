@@ -1,14 +1,20 @@
 #include "nodeform.h"
 #include "ui_nodeform.h"
 
+#include <QMouseEvent>
+
 #include "inputvaluepinform.h"
 #include "inputimpulsepinform.h"
 #include "outputvaluepinform.h"
 #include "outputimpulsepinform.h"
+#include "nodedragger.h"
 
-NodeForm::NodeForm(QWidget *parent, const char* nodeName) :
+#include <iostream>
+
+NodeForm::NodeForm(QWidget *parent, const char* nodeName, NodeDragger& nodeDragger) :
     QWidget(parent),
-    ui(new Ui::NodeForm)
+    ui(new Ui::NodeForm),
+    nodeDragger(nodeDragger)
 {
     ui->setupUi(this);
     ui->label->setText(nodeName);
@@ -42,3 +48,22 @@ void NodeForm::addOutputImpulsePin(const char *name)
     OutputImpulsePinForm* outputImpulsePinForm = new OutputImpulsePinForm(name);
     ui->pinsFrame->layout()->addWidget(outputImpulsePinForm);
 }
+
+void NodeForm::mousePressEvent(QMouseEvent *event)
+{
+    std::cout << "PRESS" << std::endl;
+    nodeDragger.beginDrag(this, event->pos());
+}
+
+void NodeForm::mouseReleaseEvent(QMouseEvent *event)
+{
+    std::cout << "RELEASE" << std::endl;
+    nodeDragger.endDrag();
+}
+
+void NodeForm::mouseMoveEvent(QMouseEvent *event)
+{
+    std::cout << "MOVE" << std::endl;
+    nodeDragger.drag(event->pos());
+}
+

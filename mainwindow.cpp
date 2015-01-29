@@ -27,6 +27,5 @@ MainWindow::~MainWindow()
 
 NodeForm* MainWindow::addNodeForm(const char *name)
 {
-    NodeForm* nodeForm = new NodeForm(ui->nodesFrame, name);
-    return nodeForm;
+    return new NodeForm(ui->nodesFrame, name, nodeDragger);
 }
