@@ -12,3 +12,18 @@ OutputImpulsePinForm::~OutputImpulsePinForm()
 {
     delete ui;
 }
+
+void OutputImpulsePinForm::mousePressEvent(QMouseEvent *event)
+{
+
+}
+
+void OutputImpulsePinForm::mouseReleaseEvent(QMouseEvent *event)
+{
+
+}
+
+void OutputImpulsePinForm::mouseMoveEvent(QMouseEvent *event)
+{
+
+}

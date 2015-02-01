@@ -12,3 +12,18 @@ OutputValuePinForm::~OutputValuePinForm()
 {
     delete ui;
 }
+
+void OutputValuePinForm::mousePressEvent(QMouseEvent *event)
+{
+
+}
+
+void OutputValuePinForm::mouseReleaseEvent(QMouseEvent *event)
+{
+
+}
+
+void OutputValuePinForm::mouseMoveEvent(QMouseEvent *event)
+{
+
+}

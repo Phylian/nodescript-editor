@@ -15,6 +15,10 @@ public:
     explicit InputValuePinForm(const char* name);
     ~InputValuePinForm();
 
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+
 private:
     Ui::InputValuePinForm *ui;
 };

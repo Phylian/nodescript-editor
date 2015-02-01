@@ -14,7 +14,7 @@ class NodeForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit NodeForm(QWidget *parent, const char* nodeName, NodeDragger& nodeDragger);
+    explicit NodeForm(const char* nodeName);
     ~NodeForm();
 
     void addInputValuePin(const char* name);
@@ -22,13 +22,15 @@ public:
     void addOutputValuePin(const char* name);
     void addOutputImpulsePin(const char* name);
 
-    virtual void mousePressEvent(QMouseEvent* event);
-    virtual void mouseReleaseEvent(QMouseEvent* event);
-    virtual void mouseMoveEvent(QMouseEvent* event);
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+
+    inline void setNodeDragger(NodeDragger* nodeDragger) { this->nodeDragger = nodeDragger; }
 
 private:
     Ui::NodeForm *ui;
-    NodeDragger& nodeDragger;
+    NodeDragger* nodeDragger;
 };
 
 #endif // NODEFORM_H

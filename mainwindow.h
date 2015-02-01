@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "nodedragger.h"
+#include "nodescript/src/nodescript.h"
 
 class NodeForm;
 
@@ -19,10 +20,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    NodeForm* addNodeForm(const char* name);
+    NodeForm* buildNodeFormFromNode(Node* node);
+    void addNodeFormInstance(NodeForm* nodeForm);
+    void addNodeFormTemplate(NodeForm* nodeForm);
 
 private:
     Ui::MainWindow *ui;
+    ScriptEngine scriptEngine;
     NodeDragger nodeDragger;
 };
 

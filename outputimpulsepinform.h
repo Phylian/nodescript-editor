@@ -15,6 +15,10 @@ public:
     explicit OutputImpulsePinForm(const char* name);
     ~OutputImpulsePinForm();
 
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+
 private:
     Ui::OutputImpulsePinForm *ui;
 };

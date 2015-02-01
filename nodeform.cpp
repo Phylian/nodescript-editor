@@ -9,10 +9,9 @@
 #include "outputimpulsepinform.h"
 #include "nodedragger.h"
 
-NodeForm::NodeForm(QWidget *parent, const char* nodeName, NodeDragger& nodeDragger) :
-    QWidget(parent),
+NodeForm::NodeForm(const char* nodeName) :
     ui(new Ui::NodeForm),
-    nodeDragger(nodeDragger)
+    nodeDragger(nullptr)
 {
     ui->setupUi(this);
     ui->label->setText(nodeName);
@@ -49,16 +48,19 @@ void NodeForm::addOutputImpulsePin(const char *name)
 
 void NodeForm::mousePressEvent(QMouseEvent *event)
 {
-    nodeDragger.beginDrag(this, event->pos());
+    if (nodeDragger)
+        nodeDragger->beginDrag(this, event->pos());
 }
 
 void NodeForm::mouseReleaseEvent(QMouseEvent *event)
 {
-    nodeDragger.endDrag();
+    if (nodeDragger)
+        nodeDragger->endDrag();
 }
 
 void NodeForm::mouseMoveEvent(QMouseEvent *event)
 {
-    nodeDragger.drag(event->pos());
+    if (nodeDragger)
+        nodeDragger->drag(event->pos());
 }
 
