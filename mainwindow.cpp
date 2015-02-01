@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    /*
     NodeForm* nodeForm = addNodeForm("My Node");
     nodeForm->addInputValuePin("In Value Pin 1");
     nodeForm->addInputValuePin("In Value Pin 2");
@@ -17,7 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
     nodeForm->addOutputImpulsePin("Out Impulse Pin 1");
     nodeForm->addOutputImpulsePin("Out Impulse Pin 2");
     nodeForm->resize(nodeForm->sizeHint());
-    //nodeForm->adjustSize();
+    */
+    NodeForm* nodeForm = addNodeForm("Spectral Peaks");
+    nodeForm->addInputValuePin("Spectrum");
+    nodeForm->addOutputValuePin("Frequencies");
+    nodeForm->addOutputValuePin("Magnitudes");
+    nodeForm->resize(nodeForm->sizeHint());
 }
 
 MainWindow::~MainWindow()

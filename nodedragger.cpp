@@ -1,5 +1,7 @@
 #include "nodedragger.h"
 
+#include <cassert>
+
 #include "nodeform.h"
 
 NodeDragger::NodeDragger() :
@@ -21,6 +23,7 @@ void NodeDragger::beginDrag(NodeForm *nodeForm, QPoint offset)
 
 void NodeDragger::drag(QPoint mousePosition)
 {
+    assert(nodeForm != NULL);
     nodeForm->move(nodeForm->mapToParent(mousePosition - offset));
 }
 

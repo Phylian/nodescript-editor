@@ -35,3 +35,5 @@ FORMS    += mainwindow.ui \
     inputimpulsepinform.ui \
     outputvaluepinform.ui \
     outputimpulsepinform.ui
+
+CONFIG += c++11
