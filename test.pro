@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     inputimpulsepinform.cpp \
     outputvaluepinform.cpp \
     outputimpulsepinform.cpp \
-    nodedragger.cpp \
     nodescript/src/functionalnode.cpp \
     nodescript/src/functionalnoderuntime.cpp \
     nodescript/src/node.cpp \
@@ -33,7 +32,20 @@ SOURCES += main.cpp\
     nodescript/src/scriptruntime.cpp \
     nodescript/src/nodes/initnode.cpp \
     nodescript/src/nodes/testnode.cpp \
-    nodescript/src/nodes/math/addnode.cpp
+    nodescript/src/nodes/math/addnode.cpp \
+    nodeformbuilders/nodeformbuilders.cpp \
+    nodeformbuilders/nodeformbuilder.cpp \
+    nodeformbuilders/nodeformbuilders/intconstantvaluenodeformbuilder.cpp \
+    intfieldform.cpp \
+    stringfieldform.cpp \
+    nodeformbuilders/nodeformbuilders/stringconstantvaluenodeformbuilder.cpp \
+    nodeformbuilders/nodeformbuilders/longconstantvaluenodeformbuilder.cpp \
+    nodeformbuilders/nodeformbuilders/boolconstantvaluenodeformbuilder.cpp \
+    nodeformbuilders/nodeformbuilders/floatconstantvaluenodeformbuilder.cpp \
+    nodeformbuilders/nodeformbuilders/doubleconstantvaluenodeformbuilder.cpp \
+    boolfieldform.cpp \
+    floatfieldform.cpp \
+    nodeformdragger.cpp
 
 HEADERS  += mainwindow.h \
     nodeform.h \
@@ -41,7 +53,6 @@ HEADERS  += mainwindow.h \
     inputimpulsepinform.h \
     outputvaluepinform.h \
     outputimpulsepinform.h \
-    nodedragger.h \
     nodescript/src/debug.h \
     nodescript/src/functionalnode.h \
     nodescript/src/functionalnoderuntime.h \
@@ -61,17 +72,34 @@ HEADERS  += mainwindow.h \
     nodescript/src/nodes/constantvaluenode.h \
     nodescript/src/nodes/initnode.h \
     nodescript/src/nodes/testnode.h \
-    nodescript/src/nodes/math/addnode.h
+    nodescript/src/nodes/math/addnode.h \
+    nodeformbuilders/nodeformbuilders.h \
+    nodeformbuilders/nodeformbuilder.h \
+    nodeformbuilders/nodeformbuilders/intconstantvaluenodeformbuilder.h \
+    intfieldform.h \
+    stringfieldform.h \
+    nodeformbuilders/nodeformbuilders/stringconstantvaluenodeformbuilder.h \
+    nodeformbuilders/nodeformbuilders/longconstantvaluenodeformbuilder.h \
+    nodeformbuilders/nodeformbuilders/boolconstantvaluenodeformbuilder.h \
+    nodeformbuilders/nodeformbuilders/floatconstantvaluenodeformbuilder.h \
+    nodeformbuilders/nodeformbuilders/doubleconstantvaluenodeformbuilder.h \
+    boolfieldform.h \
+    floatfieldform.h \
+    nodeformdragger.h
 
 FORMS    += mainwindow.ui \
     nodeform.ui \
     inputvaluepinform.ui \
     inputimpulsepinform.ui \
     outputvaluepinform.ui \
-    outputimpulsepinform.ui
+    outputimpulsepinform.ui \
+    intfieldform.ui \
+    stringfieldform.ui \
+    boolfieldform.ui \
+    floatfieldform.ui
 
 CONFIG += c++11
 
-DEFINES += NODESCRIPT_INTROSPECTION=
+DEFINES += NODESCRIPT_INTROSPECTION=1
 
 DISTFILES +=

@@ -3,15 +3,20 @@
 
 #include <QMouseEvent>
 
+#include "nodeformdragger.h"
+
 #include "inputvaluepinform.h"
 #include "inputimpulsepinform.h"
 #include "outputvaluepinform.h"
 #include "outputimpulsepinform.h"
-#include "nodedragger.h"
+#include "boolfieldform.h"
+#include "intfieldform.h"
+#include "floatfieldform.h"
+#include "stringfieldform.h"
 
 NodeForm::NodeForm(const char* nodeName) :
     ui(new Ui::NodeForm),
-    nodeDragger(nullptr)
+    nodeFormDragger(nullptr)
 {
     ui->setupUi(this);
     ui->label->setText(nodeName);
@@ -43,24 +48,48 @@ void NodeForm::addOutputValuePin(const char *name)
 void NodeForm::addOutputImpulsePin(const char *name)
 {
     OutputImpulsePinForm* outputImpulsePinForm = new OutputImpulsePinForm(name);
-    ui->pinsFrame->layout()->addWidget(outputImpulsePinForm);
+	ui->pinsFrame->layout()->addWidget(outputImpulsePinForm);
+}
+
+void NodeForm::addBoolField(const char* name)
+{
+	BoolFieldForm* boolFieldForm = new BoolFieldForm(name);
+	ui->pinsFrame->layout()->addWidget(boolFieldForm);
+}
+
+void NodeForm::addIntField(const char* name)
+{
+	IntFieldForm* intFieldForm = new IntFieldForm(name);
+	ui->pinsFrame->layout()->addWidget(intFieldForm);
+}
+
+void NodeForm::addFloatField(const char* name)
+{
+	FloatFieldForm* floatFieldForm = new FloatFieldForm(name);
+	ui->pinsFrame->layout()->addWidget(floatFieldForm);
+}
+
+void NodeForm::addStringField(const char* name)
+{
+	StringFieldForm* stringFieldForm = new StringFieldForm(name);
+	ui->pinsFrame->layout()->addWidget(stringFieldForm);
 }
 
 void NodeForm::mousePressEvent(QMouseEvent *event)
 {
-    if (nodeDragger)
-        nodeDragger->beginDrag(this, event->pos());
+    if (nodeFormDragger)
+        nodeFormDragger->beginDrag(this, event->pos());
 }
 
 void NodeForm::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (nodeDragger)
-        nodeDragger->endDrag();
+    if (nodeFormDragger)
+        nodeFormDragger->endDrag();
 }
 
 void NodeForm::mouseMoveEvent(QMouseEvent *event)
 {
-    if (nodeDragger)
-        nodeDragger->drag(event->pos());
+    if (nodeFormDragger)
+        nodeFormDragger->drag(event->pos());
 }
 

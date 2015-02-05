@@ -3,8 +3,10 @@
 
 #include <QMainWindow>
 
-#include "nodedragger.h"
 #include "nodescript/src/nodescript.h"
+
+#include "nodeformdragger.h"
+#include "nodeformbuilders/nodeformbuilders.h"
 
 class NodeForm;
 
@@ -25,9 +27,13 @@ public:
     void addNodeFormTemplate(NodeForm* nodeForm);
 
 private:
+    void registerNodeFormBuilder(const char* nodeName, NodeFormBuilder* nodeFormBuilder);
+    const NodeFormBuilder& getNodeFormBuilder(const char* nodeName);
+
     Ui::MainWindow *ui;
     ScriptEngine scriptEngine;
-    NodeDragger nodeDragger;
+    NodeFormDragger nodeDragger;
+    NodeFormBuilders nodeFormBuilders;
 };
 
 #endif // MAINWINDOW_H

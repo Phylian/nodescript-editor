@@ -103,7 +103,7 @@
           </sizepolicy>
          </property>
          <property name="styleSheet">
-          <string notr="true">border: none;</string>
+          <string notr="true">#scrollArea { border: none; }</string>
          </property>
          <property name="widgetResizable">
           <bool>true</bool>
@@ -116,6 +116,9 @@
             <width>198</width>
             <height>530</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <property name="leftMargin">
@@ -139,7 +142,7 @@
               </sizepolicy>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color: #ecf0f1;</string>
+              <string notr="true">#nodeTemplatesFrame { background-color: #ecf0f1; border: none; }</string>
              </property>
              <property name="frameShape">
               <enum>QFrame::StyledPanel</enum>
@@ -212,8 +215,7 @@
           </sizepolicy>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: #ecf0f1;
-border: none;</string>
+          <string notr="true">#scriptFrame { background-color: #ecf0f1; border: none; }</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>

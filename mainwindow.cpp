@@ -1,6 +1,7 @@
 #include <cassert>
 #include "mainwindow.h"
 #include "nodeform.h"
+#include "nodeformbuilders/nodeformbuilders.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -31,30 +32,10 @@ MainWindow::~MainWindow()
 
 NodeForm* MainWindow::buildNodeFormFromNode(Node* node)
 {
-    NodeForm* nodeForm = new NodeForm(node->getNodeName());
-    int numPins = node->getNumPins();
-    for (int i = 0; i < numPins; ++i)
-    {
-        const char* pinName = node->getPinName(i);
-        switch (node->getPinArchetype(i))
-        {
-        case PinArchetype::INPUT_VALUE:
-            nodeForm->addInputValuePin(pinName);
-            break;
-        case PinArchetype::INPUT_IMPULSE:
-            nodeForm->addInputImpulsePin(pinName);
-            break;
-        case PinArchetype::OUTPUT_VALUE:
-            nodeForm->addOutputValuePin(pinName);
-            break;
-        case PinArchetype::OUTPUT_IMPULSE:
-            nodeForm->addOutputImpulsePin(pinName);
-            break;
-        default:
-            assert(false);
-        }
-    }
-    nodeForm->resize(nodeForm->sizeHint());
+    const NodeFormBuilder& nodeFormBuilder = nodeFormBuilders.getNodeFormBuilder(node->getNodeName());
+    NodeForm* nodeForm = nodeFormBuilder.buildNodeForm(node);
+    assert(nodeForm != nullptr);
+	nodeFormBuilder.resetSize(nodeForm);
     return nodeForm;
 }
 
@@ -68,3 +49,5 @@ void MainWindow::addNodeFormTemplate(NodeForm *nodeForm)
 {
     ui->nodeTemplatesFrame->layout()->addWidget(nodeForm);
 }
+
+

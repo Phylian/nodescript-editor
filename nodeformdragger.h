@@ -5,11 +5,11 @@
 
 class NodeForm;
 
-class NodeDragger
+class NodeFormDragger
 {
 public:
-    NodeDragger();
-    ~NodeDragger();
+    NodeFormDragger();
+    ~NodeFormDragger();
 
     void beginDrag(NodeForm* nodeForm, QPoint offset);
     void drag(QPoint mousePosition);

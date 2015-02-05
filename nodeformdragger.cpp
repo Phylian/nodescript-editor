@@ -1,21 +1,21 @@
-#include "nodedragger.h"
+#include "nodeformdragger.h"
 
 #include <cassert>
 
 #include "nodeform.h"
 
-NodeDragger::NodeDragger() :
+NodeFormDragger::NodeFormDragger() :
     nodeForm(nullptr)
 {
 
 }
 
-NodeDragger::~NodeDragger()
+NodeFormDragger::~NodeFormDragger()
 {
 
 }
 
-void NodeDragger::beginDrag(NodeForm *nodeForm, QPoint offset)
+void NodeFormDragger::beginDrag(NodeForm *nodeForm, QPoint offset)
 {
     assert(nodeForm != nullptr);
     assert(this->nodeForm == nullptr);
@@ -25,13 +25,13 @@ void NodeDragger::beginDrag(NodeForm *nodeForm, QPoint offset)
     this->nodeForm->setCursor(cursor);
 }
 
-void NodeDragger::drag(QPoint mousePosition)
+void NodeFormDragger::drag(QPoint mousePosition)
 {
     assert(nodeForm != nullptr);
     nodeForm->move(nodeForm->mapToParent(mousePosition - offset));
 }
 
-void NodeDragger::endDrag()
+void NodeFormDragger::endDrag()
 {
     assert(nodeForm != nullptr);
     QCursor cursor(Qt::CursorShape::ArrowCursor);
