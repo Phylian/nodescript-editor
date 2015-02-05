@@ -1,5 +1,5 @@
-#ifndef NODEDRAGGER_H
-#define NODEDRAGGER_H
+#ifndef NODEFORMDRAGGER_H
+#define NODEFORMDRAGGER_H
 
 #include <QPoint>
 
@@ -20,4 +20,4 @@ private:
     QPoint offset;
 };
 
-#endif // NODEDRAGGER_H
+#endif // NODEFORMDRAGGER_H

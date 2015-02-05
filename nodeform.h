@@ -3,11 +3,13 @@
 
 #include <QWidget>
 
+#include "nodescript/src/nodescript.h"
+
 namespace Ui {
 class NodeForm;
 }
 
-class NodeDragger;
+class NodeFormDragger;
 
 class NodeForm : public QWidget
 {
@@ -31,11 +33,11 @@ public:
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
 
-	inline void setNodeDragger(NodeDragger* nodeDragger) { this->nodeDragger = nodeDragger; }
+	inline void setNodeDragger(NodeFormDragger* nodeDragger) { this->nodeFormDragger = nodeDragger; }
 
 private:
 	Ui::NodeForm *ui;
-	NodeDragger* nodeDragger;
+	NodeFormDragger* nodeFormDragger;
 	Node* node;
 };
 

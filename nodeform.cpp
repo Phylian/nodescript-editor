@@ -14,40 +14,41 @@
 #include "floatfieldform.h"
 #include "stringfieldform.h"
 
-NodeForm::NodeForm(const char* nodeName) :
-    ui(new Ui::NodeForm),
-    nodeFormDragger(nullptr)
+NodeForm::NodeForm(Node* node) :
+	ui(new Ui::NodeForm),
+	nodeFormDragger(nullptr),
+	node(node)
 {
-    ui->setupUi(this);
-    ui->label->setText(nodeName);
+	ui->setupUi(this);
+	ui->label->setText(node->getNodeName());
 }
 
 NodeForm::~NodeForm()
 {
-    delete ui;
+	delete ui;
 }
 
 void NodeForm::addInputValuePin(const char *name)
 {
-    InputValuePinForm* inputValuePinForm = new InputValuePinForm(name);
-    ui->pinsFrame->layout()->addWidget(inputValuePinForm);
+	InputValuePinForm* inputValuePinForm = new InputValuePinForm(name);
+	ui->pinsFrame->layout()->addWidget(inputValuePinForm);
 }
 
 void NodeForm::addInputImpulsePin(const char *name)
 {
-    InputImpulsePinForm* inputImpulsePinForm = new InputImpulsePinForm(name);
-    ui->pinsFrame->layout()->addWidget(inputImpulsePinForm);
+	InputImpulsePinForm* inputImpulsePinForm = new InputImpulsePinForm(name);
+	ui->pinsFrame->layout()->addWidget(inputImpulsePinForm);
 }
 
 void NodeForm::addOutputValuePin(const char *name)
 {
-    OutputValuePinForm* outputValuePinForm = new OutputValuePinForm(name);
-    ui->pinsFrame->layout()->addWidget(outputValuePinForm);
+	OutputValuePinForm* outputValuePinForm = new OutputValuePinForm(name);
+	ui->pinsFrame->layout()->addWidget(outputValuePinForm);
 }
 
 void NodeForm::addOutputImpulsePin(const char *name)
 {
-    OutputImpulsePinForm* outputImpulsePinForm = new OutputImpulsePinForm(name);
+	OutputImpulsePinForm* outputImpulsePinForm = new OutputImpulsePinForm(name);
 	ui->pinsFrame->layout()->addWidget(outputImpulsePinForm);
 }
 
@@ -77,19 +78,19 @@ void NodeForm::addStringField(const char* name)
 
 void NodeForm::mousePressEvent(QMouseEvent *event)
 {
-    if (nodeFormDragger)
-        nodeFormDragger->beginDrag(this, event->pos());
+	if (nodeFormDragger)
+		nodeFormDragger->beginDrag(this, event->pos());
 }
 
 void NodeForm::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (nodeFormDragger)
-        nodeFormDragger->endDrag();
+	if (nodeFormDragger)
+		nodeFormDragger->endDrag();
 }
 
 void NodeForm::mouseMoveEvent(QMouseEvent *event)
 {
-    if (nodeFormDragger)
-        nodeFormDragger->drag(event->pos());
+	if (nodeFormDragger)
+		nodeFormDragger->drag(event->pos());
 }
 
