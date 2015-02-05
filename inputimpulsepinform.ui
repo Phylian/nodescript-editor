@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>100</width>
+    <width>72</width>
     <height>16</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -24,7 +30,7 @@
     <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>30</number>
+    <number>0</number>
    </property>
    <property name="bottomMargin">
     <number>0</number>
@@ -44,7 +50,8 @@
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: #e74c3c;</string>
+      <string notr="true">background-color: #e74c3c;
+border: none;</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>

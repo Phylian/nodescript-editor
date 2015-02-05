@@ -5,49 +5,49 @@
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+	QMainWindow(parent),
+	ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 
-    const std::map<std::string, Node*>& registeredNodes = scriptEngine.getAllRegisteredNodes();
-    for (const std::pair<std::string, Node*>& node : registeredNodes)
-    {
-        {
-            NodeForm* nodeForm = buildNodeFormFromNode(node.second);
-            addNodeFormInstance(nodeForm);
-        }
+	const std::map<std::string, Node*>& registeredNodes = scriptEngine.getAllRegisteredNodes();
+	for (const std::pair<std::string, Node*>& node : registeredNodes)
+	{
+		{
+			NodeForm* nodeForm = buildNodeFormFromNode(node.second);
+			addNodeFormInstance(nodeForm);
+		}
 
-        {
-            NodeForm* nodeForm = buildNodeFormFromNode(node.second);
-            addNodeFormTemplate(nodeForm);
-        }
-    }
+		{
+			NodeForm* nodeForm = buildNodeFormFromNode(node.second);
+			addNodeFormTemplate(nodeForm);
+		}
+	}
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+	delete ui;
 }
 
 NodeForm* MainWindow::buildNodeFormFromNode(Node* node)
 {
-    const NodeFormBuilder& nodeFormBuilder = nodeFormBuilders.getNodeFormBuilder(node->getNodeName());
-    NodeForm* nodeForm = nodeFormBuilder.buildNodeForm(node);
-    assert(nodeForm != nullptr);
+	const NodeFormBuilder& nodeFormBuilder = nodeFormBuilders.getNodeFormBuilder(node->getNodeName());
+	NodeForm* nodeForm = nodeFormBuilder.buildNodeForm(node);
+	assert(nodeForm != nullptr);
 	nodeFormBuilder.resetSize(nodeForm);
-    return nodeForm;
+	return nodeForm;
 }
 
 void MainWindow::addNodeFormInstance(NodeForm *nodeForm)
 {
-    nodeForm->setNodeDragger(&nodeDragger);
-    nodeForm->setParent(ui->scriptFrame);
+	nodeForm->setNodeDragger(&nodeDragger);
+	nodeForm->setParent(ui->scriptFrame);
 }
 
 void MainWindow::addNodeFormTemplate(NodeForm *nodeForm)
 {
-    ui->nodeTemplatesFrame->layout()->addWidget(nodeForm);
+	ui->nodeTemplatesFrame->layout()->addWidget(nodeForm);
 }
 
 

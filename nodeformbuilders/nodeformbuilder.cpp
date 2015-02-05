@@ -12,6 +12,7 @@ NodeForm* NodeFormBuilder::buildNodeForm(Node* node) const
 
 void NodeFormBuilder::resetSize(NodeForm* nodeForm) const
 {
+	nodeForm->fillBlanks();
 	nodeForm->resize(nodeForm->sizeHint());
 }
 
