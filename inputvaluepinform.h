@@ -2,6 +2,7 @@
 #define INPUTVALUEPINFORM_H
 
 #include <QWidget>
+#include "nodescript/src/nodescript.h"
 
 namespace Ui {
 class InputValuePinForm;
@@ -14,8 +15,10 @@ class InputValuePinForm : public QWidget
 	Q_OBJECT
 
 public:
-	explicit InputValuePinForm(const char* name);
+	explicit InputValuePinForm(const char* name, PinIndex pinIndex);
 	~InputValuePinForm();
+
+	void setLinkDirty();
 
 private:
 	Ui::InputValuePinForm *ui;

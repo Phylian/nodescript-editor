@@ -1,30 +1,22 @@
+#include "nodelink.h"
 #include "outputimpulsepinform.h"
 #include "ui_outputimpulsepinform.h"
 
-OutputImpulsePinForm::OutputImpulsePinForm(const char* name) :
-    ui(new Ui::OutputImpulsePinForm)
+OutputImpulsePinForm::OutputImpulsePinForm(const char* name, PinIndex pinIndex) :
+	ui(new Ui::OutputImpulsePinForm)
 {
-    ui->setupUi(this);
-    ui->label->setText(name);
+	ui->setupUi(this);
+	ui->label->setText(name);
+	ui->pin->setPinIndex(pinIndex);
 }
 
 OutputImpulsePinForm::~OutputImpulsePinForm()
 {
-    delete ui;
+	delete ui;
 }
 
-void OutputImpulsePinForm::mousePressEvent(QMouseEvent *event)
+void OutputImpulsePinForm::setLinksDirty()
 {
-
-}
-
-void OutputImpulsePinForm::mouseReleaseEvent(QMouseEvent *event)
-{
-
-}
-
-void OutputImpulsePinForm::mouseMoveEvent(QMouseEvent *event)
-{
-
+	ui->pin->setLinksDirty();
 }
 

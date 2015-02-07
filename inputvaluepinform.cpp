@@ -1,15 +1,22 @@
 #include "inputvaluepinform.h"
+#include "nodelink.h"
 #include "ui_inputvaluepinform.h"
 
-InputValuePinForm::InputValuePinForm(const char* name) :
-    ui(new Ui::InputValuePinForm)
+InputValuePinForm::InputValuePinForm(const char* name, PinIndex pinIndex) :
+	ui(new Ui::InputValuePinForm)
 {
-    ui->setupUi(this);
-    ui->label->setText(name);
+	ui->setupUi(this);
+	ui->label->setText(name);
+	ui->pin->setPinIndex(pinIndex);
 }
 
 InputValuePinForm::~InputValuePinForm()
 {
-    delete ui;
+	delete ui;
+}
+
+void InputValuePinForm::setLinkDirty()
+{
+	ui->pin->setLinkDirty();
 }
 

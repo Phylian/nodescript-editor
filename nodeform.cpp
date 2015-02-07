@@ -18,7 +18,8 @@
 NodeForm::NodeForm(Node* node) :
 	ui(new Ui::NodeForm),
 	nodeFormDragger(nullptr),
-	node(node)
+	node(node),
+	nodeCall(INVALID_NODE_CALL)
 {
 	ui->setupUi(this);
 	ui->label->setText(node->getNodeName());
@@ -29,27 +30,27 @@ NodeForm::~NodeForm()
 	delete ui;
 }
 
-void NodeForm::addInputValuePin(const char *name)
+void NodeForm::addInputValuePin(const char *name, PinIndex pinIndex)
 {
-	InputValuePinForm* inputValuePinForm = new InputValuePinForm(name);
+	InputValuePinForm* inputValuePinForm = new InputValuePinForm(name, pinIndex);
 	ui->inputPinsFrame->layout()->addWidget(inputValuePinForm);
 }
 
-void NodeForm::addInputImpulsePin(const char *name)
+void NodeForm::addInputImpulsePin(const char *name, PinIndex pinIndex)
 {
-	InputImpulsePinForm* inputImpulsePinForm = new InputImpulsePinForm(name);
+	InputImpulsePinForm* inputImpulsePinForm = new InputImpulsePinForm(name, pinIndex);
 	ui->inputPinsFrame->layout()->addWidget(inputImpulsePinForm);
 }
 
-void NodeForm::addOutputValuePin(const char *name)
+void NodeForm::addOutputValuePin(const char *name, PinIndex pinIndex)
 {
-	OutputValuePinForm* outputValuePinForm = new OutputValuePinForm(name);
+	OutputValuePinForm* outputValuePinForm = new OutputValuePinForm(name, pinIndex);
 	ui->outputPinsFrame->layout()->addWidget(outputValuePinForm);
 }
 
-void NodeForm::addOutputImpulsePin(const char *name)
+void NodeForm::addOutputImpulsePin(const char *name, PinIndex pinIndex)
 {
-	OutputImpulsePinForm* outputImpulsePinForm = new OutputImpulsePinForm(name);
+	OutputImpulsePinForm* outputImpulsePinForm = new OutputImpulsePinForm(name, pinIndex);
 	ui->outputPinsFrame->layout()->addWidget(outputImpulsePinForm);
 }
 
@@ -107,6 +108,35 @@ void NodeForm::fillBlanks()
 
 ScriptPaintForm* NodeForm::getScriptPaintForm()
 {
-	return dynamic_cast<ScriptPaintForm*>(parent());
+	ScriptPaintForm* scriptPaintForm = dynamic_cast<ScriptPaintForm*>(parent());
+	assert(scriptPaintForm);
+	return scriptPaintForm;
+}
+
+void NodeForm::setLinksDirty()
+{
+	for (QObject* child : ui->inputPinsFrame->children())
+	{
+		if (InputValuePinForm* inputValuePinForm = dynamic_cast<InputValuePinForm*>(child))
+		{
+			inputValuePinForm->setLinkDirty();
+		}
+		else if (InputImpulsePinForm* inputImpulsePinForm = dynamic_cast<InputImpulsePinForm*>(child))
+		{
+			inputImpulsePinForm->setLinkDirty();
+		}
+	}
+
+	for (QObject* child : ui->outputPinsFrame->children())
+	{
+		if (OutputValuePinForm* outputValuePinForm = dynamic_cast<OutputValuePinForm*>(child))
+		{
+			outputValuePinForm->setLinksDirty();
+		}
+		else if (OutputImpulsePinForm* outputImpulsePinForm = dynamic_cast<OutputImpulsePinForm*>(child))
+		{
+			outputImpulsePinForm->setLinksDirty();
+		}
+	}
 }
 

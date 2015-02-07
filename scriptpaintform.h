@@ -24,10 +24,10 @@ public:
 	void setCurrentNodeLinkEndPin(InputPinForm* endPin);
 	void setCurrentNodeLinkEndPosition(QPoint endPosition);
 
-	void addCurrentNodeLink();
+	NodeLink* addCurrentNodeLink();
 
 private:
-	std::vector<NodeLink> links;
+	std::vector<NodeLink*> links;
 
 	NodeLink currentNodeLink;
 	bool isDraggingLink;

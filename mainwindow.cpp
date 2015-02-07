@@ -12,14 +12,14 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->setupUi(this);
 
 	const std::map<std::string, Node*>& registeredNodes = scriptEngine.getAllRegisteredNodes();
+	script = scriptEngine.newScript();
+
 	for (const std::pair<std::string, Node*>& node : registeredNodes)
 	{
-		/*
 		{
 			NodeForm* nodeForm = buildNodeFormFromNode(node.second);
 			addNodeFormInstance(nodeForm);
 		}
-		*/
 
 		{
 			NodeForm* nodeForm = buildNodeFormFromNode(node.second);
@@ -52,6 +52,9 @@ void MainWindow::addNodeFormInstance(NodeForm *nodeForm)
 {
 	nodeForm->setNodeDragger(&nodeFormDragger);
 	nodeForm->setParent(ui->scriptFrame);
+
+	NodeCall nodeCall = script->addNode(nodeForm->getNode());
+	nodeForm->setNodeCall(nodeCall);
 }
 
 void MainWindow::addNodeFormTemplate(NodeForm *nodeForm)

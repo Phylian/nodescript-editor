@@ -24,22 +24,22 @@ NodeForm* NodeFormBuilder::buildEmptyNodeForm(Node* node) const
 void NodeFormBuilder::addPins(NodeForm* nodeForm, Node* node) const
 {
 	int numPins = node->getNumPins();
-	for (int i = 0; i < numPins; ++i)
+	for (PinIndex pinIndex = 0; pinIndex < numPins; ++pinIndex)
 	{
-		const char* pinName = node->getPinName(i);
-		switch (node->getPinArchetype(i))
+		const char* pinName = node->getPinName(pinIndex);
+		switch (node->getPinArchetype(pinIndex))
 		{
 		case PinArchetype::INPUT_VALUE:
-			nodeForm->addInputValuePin(pinName);
+			nodeForm->addInputValuePin(pinName, pinIndex);
 			break;
 		case PinArchetype::INPUT_IMPULSE:
-			nodeForm->addInputImpulsePin(pinName);
+			nodeForm->addInputImpulsePin(pinName, pinIndex);
 			break;
 		case PinArchetype::OUTPUT_VALUE:
-			nodeForm->addOutputValuePin(pinName);
+			nodeForm->addOutputValuePin(pinName, pinIndex);
 			break;
 		case PinArchetype::OUTPUT_IMPULSE:
-			nodeForm->addOutputImpulsePin(pinName);
+			nodeForm->addOutputImpulsePin(pinName, pinIndex);
 			break;
 		default:
 			assert(false);

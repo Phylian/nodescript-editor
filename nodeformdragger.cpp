@@ -43,6 +43,7 @@ void NodeFormDragger::drag(QPoint mousePosition)
 	}
 
 	nodeForm->move(move);
+	nodeForm->setLinksDirty();
 	nodeForm->getScriptPaintForm()->repaint();
 }
 

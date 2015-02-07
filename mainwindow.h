@@ -26,6 +26,8 @@ public:
 	void addNodeFormInstance(NodeForm* nodeForm);
 	void addNodeFormTemplate(NodeForm* nodeForm);
 
+	inline Script* getScript() const { return script; }
+
 private:
 	void registerNodeFormBuilder(const char* nodeName, NodeFormBuilder* nodeFormBuilder);
 	const NodeFormBuilder& getNodeFormBuilder(const char* nodeName);
@@ -34,9 +36,10 @@ private:
 	void keyReleaseEvent(QKeyEvent* event) override;
 
 	Ui::MainWindow *ui;
-	ScriptEngine scriptEngine;
 	NodeFormDragger nodeFormDragger;
 	NodeFormBuilders nodeFormBuilders;
+	ScriptEngine scriptEngine;
+	Script* script;
 };
 
 #endif // MAINWINDOW_H

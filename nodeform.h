@@ -20,10 +20,10 @@ public:
 	explicit NodeForm(Node* node);
 	~NodeForm();
 
-	void addInputValuePin(const char* name);
-	void addInputImpulsePin(const char* name);
-	void addOutputValuePin(const char* name);
-	void addOutputImpulsePin(const char* name);
+	void addInputValuePin(const char* name, PinIndex pinIndex);
+	void addInputImpulsePin(const char* name, PinIndex pinIndex);
+	void addOutputValuePin(const char* name, PinIndex pinIndex);
+	void addOutputImpulsePin(const char* name, PinIndex pinIndex);
 
 	void addBoolField(const char* name = nullptr);
 	void addIntField(const char* name = nullptr);
@@ -39,10 +39,20 @@ public:
 	inline void setNodeDragger(NodeFormDragger* nodeDragger) { this->nodeFormDragger = nodeDragger; }
 	ScriptPaintForm* getScriptPaintForm();
 
+	void setLinksDirty();
+
+	inline Node* getNode() const { return node; }
+
+	inline void setNodeCall(NodeCall nodeCall) { assert(nodeCall != INVALID_NODE_CALL); assert(this->nodeCall == INVALID_NODE_CALL); this->nodeCall = nodeCall; }
+	inline NodeCall getNodeCall() const { return nodeCall; }
+
 private:
+
 	Ui::NodeForm *ui;
 	NodeFormDragger* nodeFormDragger;
 	Node* node;
+	NodeCall nodeCall;
+
 };
 
 #endif // NODEFORM_H

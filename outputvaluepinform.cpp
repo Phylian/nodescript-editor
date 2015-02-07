@@ -1,16 +1,23 @@
+#include "nodelink.h"
 #include "outputvaluepinform.h"
 #include "ui_outputvaluepinform.h"
 
-OutputValuePinForm::OutputValuePinForm(const char* name) :
-    ui(new Ui::OutputValuePinForm)
+OutputValuePinForm::OutputValuePinForm(const char* name, PinIndex pinIndex) :
+	ui(new Ui::OutputValuePinForm)
 {
-    ui->setupUi(this);
-    ui->label->setText(name);
+	ui->setupUi(this);
+	ui->label->setText(name);
+	ui->pin->setPinIndex(pinIndex);
 }
 
 OutputValuePinForm::~OutputValuePinForm()
 {
-    delete ui;
+	delete ui;
+}
+
+void OutputValuePinForm::setLinksDirty()
+{
+	ui->pin->setLinksDirty();
 }
 
 

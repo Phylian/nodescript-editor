@@ -1,5 +1,5 @@
+#include "inputpinform.h"
 #include "scriptpaintform.h"
-#include <iostream>
 #include <QPainter>
 
 ScriptPaintForm::ScriptPaintForm(QWidget *parent) : QFrame(parent),
@@ -18,10 +18,11 @@ void ScriptPaintForm::paintEvent(QPaintEvent* event)
 {
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
+	painter.setPen(QColor(127, 140, 141));
 
-	for (NodeLink& nodeLink : links)
+	for (NodeLink* nodeLink : links)
 	{
-		nodeLink.paint(painter);
+		nodeLink->paint(painter);
 	}
 
 	if (isDraggingLink)
@@ -48,9 +49,11 @@ void ScriptPaintForm::setCurrentNodeLinkEndPosition(QPoint endPosition)
 	currentNodeLink.setEndPosition(endPosition);
 }
 
-void ScriptPaintForm::addCurrentNodeLink()
+NodeLink* ScriptPaintForm::addCurrentNodeLink()
 {
 	isDraggingLink = false;
-	links.push_back(currentNodeLink);
+	NodeLink* newLink = new NodeLink(currentNodeLink);
+	links.push_back(newLink);
+	return newLink;
 }
 

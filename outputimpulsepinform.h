@@ -2,6 +2,7 @@
 #define OUTPUTIMPULSEPINFORM_H
 
 #include <QWidget>
+#include "nodescript/src/nodescript.h"
 
 namespace Ui {
 class OutputImpulsePinForm;
@@ -14,14 +15,10 @@ class OutputImpulsePinForm : public QWidget
 	Q_OBJECT
 
 public:
-	explicit OutputImpulsePinForm(const char* name);
+	explicit OutputImpulsePinForm(const char* name, PinIndex pinIndex);
 	~OutputImpulsePinForm();
 
-	void mousePressEvent(QMouseEvent* event) override;
-	void mouseReleaseEvent(QMouseEvent* event) override;
-	void mouseMoveEvent(QMouseEvent* event) override;
-
-	void setScriptPaintForm(ScriptPaintForm* scriptPaintForm) const;
+	void setLinksDirty();
 
 private:
 	Ui::OutputImpulsePinForm *ui;
