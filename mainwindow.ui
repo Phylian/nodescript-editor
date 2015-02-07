@@ -207,7 +207,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="scriptFrame">
+        <widget class="ScriptPaintForm" name="scriptFrame">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -323,6 +323,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>ScriptPaintForm</class>
+   <extends>QFrame</extends>
+   <header location="global">scriptpaintform.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

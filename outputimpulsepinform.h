@@ -7,20 +7,24 @@ namespace Ui {
 class OutputImpulsePinForm;
 }
 
+class ScriptPaintForm;
+
 class OutputImpulsePinForm : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit OutputImpulsePinForm(const char* name);
-    ~OutputImpulsePinForm();
+	explicit OutputImpulsePinForm(const char* name);
+	~OutputImpulsePinForm();
 
-    void mousePressEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseReleaseEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
+
+	void setScriptPaintForm(ScriptPaintForm* scriptPaintForm) const;
 
 private:
-    Ui::OutputImpulsePinForm *ui;
+	Ui::OutputImpulsePinForm *ui;
 };
 
 #endif // OUTPUTIMPULSEPINFORM_H

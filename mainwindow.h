@@ -16,24 +16,27 @@ class MainWindow;
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+	explicit MainWindow(QWidget *parent = 0);
+	~MainWindow();
 
-    NodeForm* buildNodeFormFromNode(Node* node);
-    void addNodeFormInstance(NodeForm* nodeForm);
-    void addNodeFormTemplate(NodeForm* nodeForm);
+	NodeForm* buildNodeFormFromNode(Node* node);
+	void addNodeFormInstance(NodeForm* nodeForm);
+	void addNodeFormTemplate(NodeForm* nodeForm);
 
 private:
-    void registerNodeFormBuilder(const char* nodeName, NodeFormBuilder* nodeFormBuilder);
-    const NodeFormBuilder& getNodeFormBuilder(const char* nodeName);
+	void registerNodeFormBuilder(const char* nodeName, NodeFormBuilder* nodeFormBuilder);
+	const NodeFormBuilder& getNodeFormBuilder(const char* nodeName);
 
-    Ui::MainWindow *ui;
-    ScriptEngine scriptEngine;
-    NodeFormDragger nodeDragger;
-    NodeFormBuilders nodeFormBuilders;
+	void keyPressEvent(QKeyEvent* event) override;
+	void keyReleaseEvent(QKeyEvent* event) override;
+
+	Ui::MainWindow *ui;
+	ScriptEngine scriptEngine;
+	NodeFormDragger nodeFormDragger;
+	NodeFormBuilders nodeFormBuilders;
 };
 
 #endif // MAINWINDOW_H

@@ -45,7 +45,11 @@ SOURCES += main.cpp\
     nodeformbuilders/nodeformbuilders/doubleconstantvaluenodeformbuilder.cpp \
     boolfieldform.cpp \
     floatfieldform.cpp \
-    nodeformdragger.cpp
+    nodeformdragger.cpp \
+    scriptpaintform.cpp \
+    nodelink.cpp \
+    inputpinform.cpp \
+    outputpinform.cpp
 
 HEADERS  += mainwindow.h \
     nodeform.h \
@@ -85,7 +89,11 @@ HEADERS  += mainwindow.h \
     nodeformbuilders/nodeformbuilders/doubleconstantvaluenodeformbuilder.h \
     boolfieldform.h \
     floatfieldform.h \
-    nodeformdragger.h
+    nodeformdragger.h \
+    scriptpaintform.h \
+    nodelink.h \
+    inputpinform.h \
+    outputpinform.h
 
 FORMS    += mainwindow.ui \
     nodeform.ui \
@@ -101,6 +109,7 @@ FORMS    += mainwindow.ui \
 CONFIG += c++11
 
 DEFINES += NODESCRIPT_INTROSPECTION=1 \
-    NODESCRIPT_EDITOR=1
+	NODESCRIPT_EDITOR=1 \
+	NODESCRIPT_DEBUG=1
 
 DISTFILES +=

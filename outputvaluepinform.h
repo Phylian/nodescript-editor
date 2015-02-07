@@ -7,20 +7,18 @@ namespace Ui {
 class OutputValuePinForm;
 }
 
+class ScriptPaintForm;
+
 class OutputValuePinForm : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit OutputValuePinForm(const char* name);
-    ~OutputValuePinForm();
-
-    void mousePressEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
+	explicit OutputValuePinForm(const char* name);
+	~OutputValuePinForm();
 
 private:
-    Ui::OutputValuePinForm *ui;
+	Ui::OutputValuePinForm *ui;
 };
 
 #endif // OUTPUTVALUEPINFORM_H

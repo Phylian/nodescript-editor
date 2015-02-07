@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 
 #include "nodeformdragger.h"
+#include "scriptpaintform.h"
 
 #include "inputvaluepinform.h"
 #include "inputimpulsepinform.h"
@@ -102,5 +103,10 @@ void NodeForm::fillBlanks()
 	QFrame* outputPinsFiller = new QFrame();
 	outputPinsFiller->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::MinimumExpanding);
 	ui->outputPinsFrame->layout()->addWidget(outputPinsFiller);
+}
+
+ScriptPaintForm* NodeForm::getScriptPaintForm()
+{
+	return dynamic_cast<ScriptPaintForm*>(parent());
 }
 

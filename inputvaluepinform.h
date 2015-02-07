@@ -7,20 +7,18 @@ namespace Ui {
 class InputValuePinForm;
 }
 
+class ScriptPaintForm;
+
 class InputValuePinForm : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit InputValuePinForm(const char* name);
-    ~InputValuePinForm();
-
-    void mousePressEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
+	explicit InputValuePinForm(const char* name);
+	~InputValuePinForm();
 
 private:
-    Ui::InputValuePinForm *ui;
+	Ui::InputValuePinForm *ui;
 };
 
 #endif // INPUTVALUEPINFORM_H

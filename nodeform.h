@@ -10,6 +10,7 @@ class NodeForm;
 }
 
 class NodeFormDragger;
+class ScriptPaintForm;
 
 class NodeForm : public QWidget
 {
@@ -36,6 +37,7 @@ public:
 	void fillBlanks();
 
 	inline void setNodeDragger(NodeFormDragger* nodeDragger) { this->nodeFormDragger = nodeDragger; }
+	ScriptPaintForm* getScriptPaintForm();
 
 private:
 	Ui::NodeForm *ui;

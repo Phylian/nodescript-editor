@@ -27,3 +27,4 @@ void OutputImpulsePinForm::mouseMoveEvent(QMouseEvent *event)
 {
 
 }
+
