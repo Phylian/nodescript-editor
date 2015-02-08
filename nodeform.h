@@ -11,6 +11,8 @@ class NodeForm;
 
 class NodeFormDragger;
 class ScriptPaintForm;
+class OutputPinForm;
+class InputPinForm;
 
 class NodeForm : public QWidget
 {
@@ -30,9 +32,14 @@ public:
 	void addFloatField(const char* name = nullptr);
 	void addStringField(const char* name = nullptr);
 
+	OutputPinForm* getOutputPinForm(PinIndex pinIndex) const;
+	InputPinForm* getInputPinForm(PinIndex pinIndex) const;
+
 	void mousePressEvent(QMouseEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
+
+	void mouseDoubleClickEvent(QMouseEvent* event) override;
 
 	void fillBlanks();
 
@@ -40,6 +47,8 @@ public:
 	ScriptPaintForm* getScriptPaintForm();
 
 	void setLinksDirty();
+
+	void disableFields();
 
 	inline Node* getNode() const { return node; }
 

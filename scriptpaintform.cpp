@@ -29,6 +29,16 @@ void ScriptPaintForm::paintEvent(QPaintEvent* event)
 		currentNodeLink.paint(painter);
 }
 
+void ScriptPaintForm::setIsDraggingLink(bool isDraggingLink)
+{
+	this->isDraggingLink = isDraggingLink;
+	if (!isDraggingLink)
+	{
+		currentNodeLink.setBeginPin(nullptr);
+		currentNodeLink.setEndPin(nullptr);
+	}
+}
+
 void ScriptPaintForm::setCurrentNodeLinkBeginPin(OutputPinForm* beginPin)
 {
 	currentNodeLink.setBeginPin(beginPin);
@@ -49,11 +59,22 @@ void ScriptPaintForm::setCurrentNodeLinkEndPosition(QPoint endPosition)
 	currentNodeLink.setEndPosition(endPosition);
 }
 
-NodeLink* ScriptPaintForm::addCurrentNodeLink()
+void ScriptPaintForm::addLink(NodeLink* link)
 {
-	isDraggingLink = false;
-	NodeLink* newLink = new NodeLink(currentNodeLink);
-	links.push_back(newLink);
-	return newLink;
+	assert(std::find(links.begin(), links.end(), link) == links.end());
+	link->connectToBeginPin();
+	link->connectToEndPin();
+	links.push_back(link);
 }
+
+void ScriptPaintForm::removeLink(NodeLink* link)
+{
+	std::vector<NodeLink*>::iterator it = std::find(links.begin(), links.end(), link);
+	assert(it != links.end());
+	link->disconnectFromBeginPin();
+	link->disconnectFromEndPin();
+	links.erase(it);
+}
+
+
 

@@ -4,9 +4,8 @@
 #include "outputpinform.h"
 #include "scriptpaintform.h"
 
-InputPinForm::InputPinForm(QWidget* parent) : QFrame(parent),
-	link(nullptr),
-	pinIndex(INVALID_PIN_INDEX)
+InputPinForm::InputPinForm(QWidget* parent) : PinForm(parent),
+	link(nullptr)
 {
 
 }
@@ -18,11 +17,24 @@ InputPinForm::~InputPinForm()
 
 void InputPinForm::mousePressEvent(QMouseEvent* event)
 {
-	ScriptPaintForm* scriptPaintForm = getScriptPaintForm();
+	if (getNodeForm()->getNodeCall() == INVALID_NODE_CALL)
+		return;
 
+	ScriptPaintForm* scriptPaintForm = getScriptPaintForm();
+	QPoint position = mapTo(scriptPaintForm, event->pos());
+	if (link)
+	{
+		scriptPaintForm->setCurrentNodeLinkBeginPin(link->getBeginPin());
+		scriptPaintForm->setCurrentNodeLinkEndPosition(position);
+		getMainWindow()->removeLink(link);
+		link = nullptr;
+	}
+	else
+	{
+		scriptPaintForm->setCurrentNodeLinkBeginPosition(position);
+		scriptPaintForm->setCurrentNodeLinkEndPin(this);
+	}
 	scriptPaintForm->setIsDraggingLink(true);
-	scriptPaintForm->setCurrentNodeLinkEndPin(this);
-	scriptPaintForm->setCurrentNodeLinkBeginPosition(mapTo(scriptPaintForm, event->pos()));
 	scriptPaintForm->repaint();
 }
 
@@ -30,94 +42,38 @@ void InputPinForm::mouseMoveEvent(QMouseEvent* event)
 {
 	ScriptPaintForm* scriptPaintForm = getScriptPaintForm();
 
-	scriptPaintForm->setCurrentNodeLinkBeginPosition(mapTo(scriptPaintForm, event->pos()));
-	if (OutputPinForm* outputPinForm = getOutputPinFormUnderCursor(event))
-	{
-		Script* script = getScript();
-		NodeCall nodeCall1 = outputPinForm->getNodeForm()->getNodeCall();
-		NodeCall nodeCall2 = getNodeForm()->getNodeCall();
-		if (script->isLinkValid(nodeCall1, outputPinForm->getPinIndex(), nodeCall2, pinIndex))
-		{
-			QCursor cursor(Qt::CursorShape::ArrowCursor);
-			setCursor(cursor);
-		}
-		else
-		{
-			QCursor cursor(Qt::CursorShape::ForbiddenCursor);
-			setCursor(cursor);
-		}
-	}
-	else
-	{
-		QCursor cursor(Qt::CursorShape::ArrowCursor);
-		setCursor(cursor);
-	}
+	if (scriptPaintForm->isCurrentNodeLinkBeginPinConnected())
+		moveMouseFromBeginPin(event);
 
-	scriptPaintForm->repaint();
+	else
+		moveMouseFromEndPin(event);
 }
 
 void InputPinForm::mouseReleaseEvent(QMouseEvent* event)
 {
 	ScriptPaintForm* scriptPaintForm = getScriptPaintForm();
 
-	if (OutputPinForm* outputPinForm = getOutputPinFormUnderCursor(event))
-	{
-		Script* script = getScript();
-		NodeCall nodeCall1 = outputPinForm->getNodeForm()->getNodeCall();
-		NodeCall nodeCall2 = getNodeForm()->getNodeCall();
-		if (script->isLinkValid(nodeCall1, outputPinForm->getPinIndex(), nodeCall2, pinIndex))
-		{
-			scriptPaintForm->setCurrentNodeLinkBeginPin(outputPinForm);
-			link = scriptPaintForm->addCurrentNodeLink();
-			link->connectToBeginPin();
-		}
-		else
-			abortLinkDragging();
-	}
+	if (scriptPaintForm->isCurrentNodeLinkBeginPinConnected())
+		releaseMouseFromBeginPin(event);
+
 	else
-		abortLinkDragging();
-
-	scriptPaintForm->repaint();
-}
-
-OutputPinForm* InputPinForm::getOutputPinFormUnderCursor(QMouseEvent* event) const
-{
-	ScriptPaintForm* scriptPaintForm = getScriptPaintForm();
-	QWidget* widget = scriptPaintForm->childAt(mapTo(scriptPaintForm, event->pos()));
-	return dynamic_cast<OutputPinForm*>(widget);
-}
-
-void InputPinForm::abortLinkDragging()
-{
-	ScriptPaintForm* scriptPaintForm = getScriptPaintForm();
-	scriptPaintForm->setCurrentNodeLinkBeginPin(nullptr);
-	scriptPaintForm->setIsDraggingLink(false);
-	QCursor cursor(Qt::CursorShape::ArrowCursor);
-	setCursor(cursor);
-}
-
-ScriptPaintForm* InputPinForm::getScriptPaintForm() const
-{
-	return getNodeForm()->getScriptPaintForm();
-}
-
-NodeForm*InputPinForm::getNodeForm() const
-{
-	NodeForm* nodeForm = dynamic_cast<NodeForm*>(parent()->parent()->parent()->parent());
-	assert(nodeForm);
-	return nodeForm;
-}
-
-Script* InputPinForm::getScript() const
-{
-	MainWindow* mainWindow = dynamic_cast<MainWindow*>(window());
-	assert(mainWindow);
-	return mainWindow->getScript();
+		releaseMouseFromEndPin(event);
 }
 
 void InputPinForm::setLinkDirty()
 {
 	if (link)
 		link->setDirty();
+}
+
+void InputPinForm::plugLink(NodeLink* link)
+{
+	setLink(link);
+}
+
+void InputPinForm::unplugLink(NodeLink* link)
+{
+	assert(this->link == nullptr || this->link == link);
+	removeLink();
 }
 

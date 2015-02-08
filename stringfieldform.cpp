@@ -17,3 +17,8 @@ StringFieldForm::~StringFieldForm()
 {
 	delete ui;
 }
+
+void StringFieldForm::disableField()
+{
+	ui->lineEdit->setEnabled(false);
+}

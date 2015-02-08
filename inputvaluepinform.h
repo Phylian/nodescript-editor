@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "nodescript/src/nodescript.h"
+#include "inputpinlineform.h"
 
 namespace Ui {
 class InputValuePinForm;
@@ -10,7 +11,7 @@ class InputValuePinForm;
 
 class ScriptPaintForm;
 
-class InputValuePinForm : public QWidget
+class InputValuePinForm : public QWidget, public InputPinLineForm
 {
 	Q_OBJECT
 
@@ -19,6 +20,8 @@ public:
 	~InputValuePinForm();
 
 	void setLinkDirty();
+
+	InputPinForm* getInputPinForm() const override;
 
 private:
 	Ui::InputValuePinForm *ui;

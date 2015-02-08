@@ -49,7 +49,11 @@ SOURCES += main.cpp\
     scriptpaintform.cpp \
     nodelink.cpp \
     inputpinform.cpp \
-    outputpinform.cpp
+    outputpinform.cpp \
+    constantvaluefieldform.cpp \
+    outputpinlineform.cpp \
+    inputpinlineform.cpp \
+    pinform.cpp
 
 HEADERS  += mainwindow.h \
     nodeform.h \
@@ -93,7 +97,11 @@ HEADERS  += mainwindow.h \
     scriptpaintform.h \
     nodelink.h \
     inputpinform.h \
-    outputpinform.h
+    outputpinform.h \
+    constantvaluefieldform.h \
+    outputpinlineform.h \
+    inputpinlineform.h \
+    pinform.h
 
 FORMS    += mainwindow.ui \
     nodeform.ui \

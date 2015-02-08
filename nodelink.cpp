@@ -21,6 +21,14 @@ NodeLink::NodeLink(const NodeLink& nodeLink) :
 
 }
 
+void NodeLink::operator=(const NodeLink& nodeLink)
+{
+	scriptPaintForm = nodeLink.scriptPaintForm;
+	beginPin = nodeLink.beginPin;
+	endPin = nodeLink.endPin;
+	dirty = true;
+}
+
 void NodeLink::paint(QPainter& painter)
 {
 	updatePath();
@@ -45,10 +53,58 @@ void NodeLink::connectToBeginPin()
 	beginPin->addLink(this);
 }
 
+void NodeLink::disconnectFromBeginPin()
+{
+	if (beginPin)
+		beginPin->removeLink(this);
+}
+
 void NodeLink::connectToEndPin()
 {
 	assert(endPin);
 	endPin->setLink(this);
+}
+
+void NodeLink::disconnectFromEndPin()
+{
+	if (endPin)
+		endPin->removeLink();
+}
+
+PinIndex NodeLink::getBeginPinIndex() const
+{
+	if (beginPin)
+		return beginPin->getPinIndex();
+
+	else
+		return INVALID_PIN_INDEX;
+}
+
+PinIndex NodeLink::getEndPinIndex() const
+{
+	if (endPin)
+		return endPin->getPinIndex();
+
+	else
+		return INVALID_PIN_INDEX;
+}
+
+NodeCall NodeLink::getBeginPinNodeCall() const
+{
+	if (beginPin)
+		return beginPin->getNodeCall();
+
+	else
+		return INVALID_NODE_CALL;
+}
+
+NodeCall NodeLink::getEndPinNodeCall() const
+{
+	if (endPin)
+		return endPin->getNodeCall();
+
+	else
+		return INVALID_NODE_CALL;
 }
 
 void NodeLink::updatePath()

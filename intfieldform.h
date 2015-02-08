@@ -1,22 +1,26 @@
 #ifndef INTFIELDFORM_H
 #define INTFIELDFORM_H
 
+#include "constantvaluefieldform.h"
+
 #include <QWidget>
 
 namespace Ui {
 class IntFieldForm;
 }
 
-class IntFieldForm : public QWidget
+class IntFieldForm : public QWidget, public ConstantValueFieldForm
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
 	explicit IntFieldForm(const char* name = nullptr);
-    ~IntFieldForm();
+	~IntFieldForm();
+
+	void disableField() override;
 
 private:
-    Ui::IntFieldForm *ui;
+	Ui::IntFieldForm *ui;
 };
 
 #endif // INTFIELDFORM_H

@@ -17,3 +17,8 @@ FloatFieldForm::~FloatFieldForm()
 {
 	delete ui;
 }
+
+void FloatFieldForm::disableField()
+{
+	ui->doubleSpinBox->setEnabled(false);
+}

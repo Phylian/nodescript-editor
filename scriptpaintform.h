@@ -16,7 +16,7 @@ public:
 
 	void paintEvent(QPaintEvent* event) override;
 
-	inline void setIsDraggingLink(bool isDraggingLink) { this->isDraggingLink = isDraggingLink; }
+	void setIsDraggingLink(bool isDraggingLink);
 
 	void setCurrentNodeLinkBeginPin(OutputPinForm* beginPin);
 	void setCurrentNodeLinkBeginPosition(QPoint beginPosition);
@@ -24,7 +24,10 @@ public:
 	void setCurrentNodeLinkEndPin(InputPinForm* endPin);
 	void setCurrentNodeLinkEndPosition(QPoint endPosition);
 
-	NodeLink* addCurrentNodeLink();
+	inline bool isCurrentNodeLinkBeginPinConnected() const { return isDraggingLink && currentNodeLink.getBeginPin() != nullptr; }
+
+	void addLink(NodeLink* link);
+	void removeLink(NodeLink* link);
 
 private:
 	std::vector<NodeLink*> links;

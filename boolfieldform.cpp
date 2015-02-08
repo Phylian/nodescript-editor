@@ -18,6 +18,11 @@ BoolFieldForm::~BoolFieldForm()
 	delete ui;
 }
 
+void BoolFieldForm::disableField()
+{
+	ui->checkBox->setEnabled(false);
+}
+
 void BoolFieldForm::on_checkBox_toggled(bool checked)
 {
 	if (checked)

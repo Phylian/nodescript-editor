@@ -2,9 +2,9 @@
 #include "ui_intfieldform.h"
 
 IntFieldForm::IntFieldForm(const char* name) :
-    ui(new Ui::IntFieldForm)
+	ui(new Ui::IntFieldForm)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 
 	if (name)
 		ui->label->setText(name);
@@ -15,5 +15,10 @@ IntFieldForm::IntFieldForm(const char* name) :
 
 IntFieldForm::~IntFieldForm()
 {
-    delete ui;
+	delete ui;
+}
+
+void IntFieldForm::disableField()
+{
+	ui->spinBox->setEnabled(false);
 }

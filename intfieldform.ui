@@ -50,6 +50,9 @@
    </item>
    <item>
     <widget class="QSpinBox" name="spinBox">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="styleSheet">
       <string notr="true"/>
      </property>

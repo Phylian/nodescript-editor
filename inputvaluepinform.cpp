@@ -20,3 +20,8 @@ void InputValuePinForm::setLinkDirty()
 	ui->pin->setLinkDirty();
 }
 
+InputPinForm*InputValuePinForm::getInputPinForm() const
+{
+	return ui->pin;
+}
+

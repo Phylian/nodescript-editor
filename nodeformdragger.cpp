@@ -30,19 +30,16 @@ void NodeFormDragger::beginDrag(NodeForm *nodeForm, QPoint offset)
 void NodeFormDragger::drag(QPoint mousePosition)
 {
 	assert(nodeForm != nullptr);
-
-	QPoint move = nodeForm->mapToParent(mousePosition - offset);
-
+	QPoint position = nodeForm->mapToParent(mousePosition - offset);
 	if (snapToGrid)
 	{
 		const int gridCellSize = 20;
-		move = QPoint(
-			round(static_cast<float>(move.x()) / gridCellSize) * gridCellSize,
-			round(static_cast<float>(move.y()) / gridCellSize) * gridCellSize
+		position = QPoint(
+			round(static_cast<float>(position.x()) / gridCellSize) * gridCellSize,
+			round(static_cast<float>(position.y()) / gridCellSize) * gridCellSize
 		);
 	}
-
-	nodeForm->move(move);
+	nodeForm->move(position);
 	nodeForm->setLinksDirty();
 	nodeForm->getScriptPaintForm()->repaint();
 }

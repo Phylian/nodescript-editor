@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "nodescript/src/nodescript.h"
+#include "inputpinlineform.h"
 
 namespace Ui {
 class InputImpulsePinForm;
@@ -10,7 +11,7 @@ class InputImpulsePinForm;
 
 class ScriptPaintForm;
 
-class InputImpulsePinForm : public QWidget
+class InputImpulsePinForm : public QWidget, public InputPinLineForm
 {
 	Q_OBJECT
 
@@ -19,6 +20,8 @@ public:
 	~InputImpulsePinForm();
 
 	void setLinkDirty();
+
+	InputPinForm* getInputPinForm() const override;
 
 private:
 	Ui::InputImpulsePinForm *ui;

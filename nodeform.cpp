@@ -14,6 +14,9 @@
 #include "intfieldform.h"
 #include "floatfieldform.h"
 #include "stringfieldform.h"
+#include "mainwindow.h"
+#include "outputpinform.h"
+#include "inputpinform.h"
 
 NodeForm::NodeForm(Node* node) :
 	ui(new Ui::NodeForm),
@@ -78,6 +81,42 @@ void NodeForm::addStringField(const char* name)
 	ui->fieldsFrame->layout()->addWidget(stringFieldForm);
 }
 
+OutputPinForm* NodeForm::getOutputPinForm(PinIndex pinIndex) const
+{
+	OutputPinForm* outputPinForm = nullptr;
+	for (QObject* child : ui->outputPinsFrame->children())
+	{
+		if (OutputPinLineForm* outputPinLineForm = dynamic_cast<OutputPinLineForm*>(child))
+		{
+			OutputPinForm* pinForm = outputPinLineForm->getOutputPinForm();
+			if (pinForm->getPinIndex() == pinIndex)
+			{
+				outputPinForm = pinForm;
+				break;
+			}
+		}
+	}
+	return outputPinForm;
+}
+
+InputPinForm* NodeForm::getInputPinForm(PinIndex pinIndex) const
+{
+	InputPinForm* inputPinForm = nullptr;
+	for (QObject* child : ui->inputPinsFrame->children())
+	{
+		if (InputPinLineForm* inputPinLineForm = dynamic_cast<InputPinLineForm*>(child))
+		{
+			InputPinForm* pinForm = inputPinLineForm->getInputPinForm();
+			if (pinForm->getPinIndex() == pinIndex)
+			{
+				inputPinForm = pinForm;
+				break;
+			}
+		}
+	}
+	return inputPinForm;
+}
+
 void NodeForm::mousePressEvent(QMouseEvent *event)
 {
 	if (nodeFormDragger)
@@ -94,6 +133,17 @@ void NodeForm::mouseMoveEvent(QMouseEvent *event)
 {
 	if (nodeFormDragger)
 		nodeFormDragger->drag(event->pos());
+}
+
+void NodeForm::mouseDoubleClickEvent(QMouseEvent* event)
+{
+	if (nodeCall == INVALID_NODE_CALL)
+	{
+		MainWindow* mainWindow = dynamic_cast<MainWindow*>(window());
+		assert(mainWindow);
+		NodeForm* nodeForm = mainWindow->buildNodeFormFromNode(node);
+		mainWindow->addNodeFormInstance(nodeForm);
+	}
 }
 
 void NodeForm::fillBlanks()
@@ -137,6 +187,15 @@ void NodeForm::setLinksDirty()
 		{
 			outputImpulsePinForm->setLinksDirty();
 		}
+	}
+}
+
+void NodeForm::disableFields()
+{
+	for (QObject* child : ui->fieldsFrame->children())
+	{
+		if (ConstantValueFieldForm* constantValueFieldForm = dynamic_cast<ConstantValueFieldForm*>(child))
+			constantValueFieldForm->disableField();
 	}
 }
 

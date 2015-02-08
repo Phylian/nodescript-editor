@@ -20,3 +20,8 @@ void OutputImpulsePinForm::setLinksDirty()
 	ui->pin->setLinksDirty();
 }
 
+OutputPinForm* OutputImpulsePinForm::getOutputPinForm() const
+{
+	return ui->pin;
+}
+
