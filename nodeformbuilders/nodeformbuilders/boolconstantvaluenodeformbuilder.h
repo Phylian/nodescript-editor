@@ -7,6 +7,7 @@ class BoolConstantValueNodeFormBuilder : public NodeFormBuilderTemplate<node::Bo
 {
 public:
 	NodeForm* buildNodeForm(Node* node) const override;
+	void prepareRuntime(NodeForm* nodeForm, NodeRuntime* nodeRuntime) const override;
 };
 
 #endif // BOOLCONSTANTVALUENODEFORMBUILDER_H

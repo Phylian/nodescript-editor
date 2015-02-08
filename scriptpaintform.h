@@ -6,6 +6,7 @@
 #include <QFrame>
 
 class OutputPinForm;
+class NodeForm;
 
 class ScriptPaintForm : public QFrame
 {
@@ -29,6 +30,8 @@ public:
 
 	void addLink(NodeLink* link);
 	void removeLink(NodeLink* link);
+
+	NodeForm* getNodeForm(NodeCall nodeCall) const;
 
 private:
 	std::vector<NodeLink*> links;

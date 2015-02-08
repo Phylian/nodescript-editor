@@ -7,6 +7,7 @@ class FloatConstantValueNodeFormBuilder : public NodeFormBuilderTemplate<node::F
 {
 public:
 	NodeForm* buildNodeForm(Node* node) const override;
+	void prepareRuntime(NodeForm* nodeForm, NodeRuntime* nodeRuntime) const override;
 };
 
 #endif // FLOATCONSTANTVALUENODEFORMBUILDER_H

@@ -14,10 +14,12 @@ class StringFieldForm : public QWidget, public ConstantValueFieldForm
 	Q_OBJECT
 
 public:
-	explicit StringFieldForm(const char* name = nullptr);
+	explicit StringFieldForm(const char* name, bool showName = false);
 	~StringFieldForm();
 
 	void disableField() override;
+
+	std::string getValue() const;
 
 private:
 	Ui::StringFieldForm *ui;

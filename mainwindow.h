@@ -30,7 +30,12 @@ public:
 	NodeLink* addLink(NodeCall nodeCall1, PinIndex outputPinIndex, NodeCall nodeCall2, PinIndex inputPinIndex);
 	void removeLink(NodeLink* link);
 
+	void executeScript();
+
 	inline Script* getScript() const { return script; }
+
+private slots:
+	void on_pushButton_clicked();
 
 private:
 	void registerNodeFormBuilder(const char* nodeName, NodeFormBuilder* nodeFormBuilder);

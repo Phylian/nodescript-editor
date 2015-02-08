@@ -83,6 +83,23 @@ void MainWindow::removeLink(NodeLink* link)
 	delete link;
 }
 
+void MainWindow::executeScript()
+{
+	script->optimize();
+	ScriptRuntime* scriptRuntime = script->createRuntime();
+	int numNodes = script->getNumNodes();
+	for (NodeCall nodeCall = 0; nodeCall < numNodes; nodeCall++)
+	{
+		Node* node = script->getNode(nodeCall);
+		const NodeFormBuilder& nodeFormBuilder = nodeFormBuilders.getNodeFormBuilder(node->getNodeName());
+		NodeForm* nodeForm = ui->scriptFrame->getNodeForm(nodeCall);
+		NodeRuntime* nodeRuntime = scriptRuntime->getNodeCallRuntime(nodeCall);
+		nodeFormBuilder.prepareRuntime(nodeForm, nodeRuntime);
+	}
+	scriptRuntime->execute();
+	delete scriptRuntime;
+}
+
 NodeForm* MainWindow::getNodeInstanceForm(NodeCall nodeCall)
 {
 	NodeForm* nodeInstanceForm = nullptr;
@@ -111,3 +128,8 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 }
 
 
+
+void MainWindow::on_pushButton_clicked()
+{
+	executeScript();
+}

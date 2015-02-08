@@ -1,15 +1,15 @@
 #include "floatfieldform.h"
 #include "ui_floatfieldform.h"
 
-FloatFieldForm::FloatFieldForm(const char* name) :
+FloatFieldForm::FloatFieldForm(const char* name, bool showName) :
+	ConstantValueFieldForm(name),
 	ui(new Ui::FloatFieldForm)
 {
 	ui->setupUi(this);
 
-	if (name)
-		ui->label->setText(name);
+	ui->label->setText(name);
 
-	else
+	if (!showName)
 		ui->label->hide();
 }
 
@@ -21,4 +21,9 @@ FloatFieldForm::~FloatFieldForm()
 void FloatFieldForm::disableField()
 {
 	ui->doubleSpinBox->setEnabled(false);
+}
+
+double FloatFieldForm::getValue() const
+{
+	return ui->doubleSpinBox->value();
 }

@@ -14,10 +14,12 @@ class FloatFieldForm : public QWidget, public ConstantValueFieldForm
 	Q_OBJECT
 
 public:
-	explicit FloatFieldForm(const char* name = nullptr);
+	explicit FloatFieldForm(const char* name, bool showName = false);
 	~FloatFieldForm();
 
 	void disableField() override;
+
+	double getValue() const;
 
 private:
 	Ui::FloatFieldForm *ui;

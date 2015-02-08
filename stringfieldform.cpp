@@ -1,15 +1,15 @@
 #include "stringfieldform.h"
 #include "ui_stringfieldform.h"
 
-StringFieldForm::StringFieldForm(const char* name) :
+StringFieldForm::StringFieldForm(const char* name, bool showName) :
+	ConstantValueFieldForm(name),
 	ui(new Ui::StringFieldForm)
 {
 	ui->setupUi(this);
 
-	if (name)
-		ui->label->setText(name);
+	ui->label->setText(name);
 
-	else
+	if (!showName)
 		ui->label->hide();
 }
 
@@ -21,4 +21,9 @@ StringFieldForm::~StringFieldForm()
 void StringFieldForm::disableField()
 {
 	ui->lineEdit->setEnabled(false);
+}
+
+std::string StringFieldForm::getValue() const
+{
+	return ui->lineEdit->text().toStdString();
 }

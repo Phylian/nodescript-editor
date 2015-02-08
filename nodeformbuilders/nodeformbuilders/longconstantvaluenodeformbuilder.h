@@ -7,6 +7,7 @@ class LongConstantValueNodeFormBuilder : public NodeFormBuilderTemplate<node::Lo
 {
 public:
 	NodeForm* buildNodeForm(Node* node) const override;
+	void prepareRuntime(NodeForm* nodeForm, NodeRuntime* nodeRuntime) const override;
 };
 
 #endif // LONGCONSTANTVALUENODEFORMBUILDER_H

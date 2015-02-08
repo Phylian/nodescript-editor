@@ -1,15 +1,15 @@
 #include "intfieldform.h"
 #include "ui_intfieldform.h"
 
-IntFieldForm::IntFieldForm(const char* name) :
+IntFieldForm::IntFieldForm(const char* name, bool showName) :
+	ConstantValueFieldForm(name),
 	ui(new Ui::IntFieldForm)
 {
 	ui->setupUi(this);
 
-	if (name)
-		ui->label->setText(name);
+	ui->label->setText(name);
 
-	else
+	if (!showName)
 		ui->label->hide();
 }
 
@@ -21,4 +21,9 @@ IntFieldForm::~IntFieldForm()
 void IntFieldForm::disableField()
 {
 	ui->spinBox->setEnabled(false);
+}
+
+int IntFieldForm::getValue() const
+{
+	return ui->spinBox->value();
 }

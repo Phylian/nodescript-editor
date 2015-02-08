@@ -114,7 +114,7 @@
             <x>0</x>
             <y>0</y>
             <width>198</width>
-            <height>530</height>
+            <height>503</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -155,6 +155,13 @@
            </item>
           </layout>
          </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Execute !</string>
+         </property>
         </widget>
        </item>
       </layout>

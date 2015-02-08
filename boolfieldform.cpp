@@ -1,15 +1,15 @@
 #include "boolfieldform.h"
 #include "ui_boolfieldform.h"
 
-BoolFieldForm::BoolFieldForm(const char* name) :
+BoolFieldForm::BoolFieldForm(const char* name, bool showName) :
+	ConstantValueFieldForm(name),
 	ui(new Ui::BoolFieldForm)
 {
 	ui->setupUi(this);
 
-	if (name)
-		ui->label->setText(name);
+	ui->label->setText(name);
 
-	else
+	if (!showName)
 		ui->label->hide();
 }
 
@@ -21,6 +21,11 @@ BoolFieldForm::~BoolFieldForm()
 void BoolFieldForm::disableField()
 {
 	ui->checkBox->setEnabled(false);
+}
+
+bool BoolFieldForm::getValue() const
+{
+	return ui->checkBox->isChecked();
 }
 
 void BoolFieldForm::on_checkBox_toggled(bool checked)

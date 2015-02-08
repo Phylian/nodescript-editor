@@ -13,7 +13,7 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+    mainwindow.cpp \
     nodeform.cpp \
     inputvaluepinform.cpp \
     inputimpulsepinform.cpp \
@@ -117,7 +117,8 @@ FORMS    += mainwindow.ui \
 CONFIG += c++11
 
 DEFINES += NODESCRIPT_INTROSPECTION=1 \
-	NODESCRIPT_EDITOR=1 \
-	NODESCRIPT_DEBUG=1
+    NODESCRIPT_VERBOSE=1 \
+    NODESCRIPT_DEBUG=1
 
 DISTFILES +=
+

@@ -1,4 +1,5 @@
 #include "inputpinform.h"
+#include "nodeform.h"
 #include "scriptpaintform.h"
 #include <QPainter>
 
@@ -74,6 +75,23 @@ void ScriptPaintForm::removeLink(NodeLink* link)
 	link->disconnectFromBeginPin();
 	link->disconnectFromEndPin();
 	links.erase(it);
+}
+
+NodeForm* ScriptPaintForm::getNodeForm(NodeCall nodeCall) const
+{
+	NodeForm* nodeForm = nullptr;
+	for (QObject* child : children())
+	{
+		if (NodeForm* nodeForm1 = dynamic_cast<NodeForm*>(child))
+		{
+			if (nodeForm1->getNodeCall() == nodeCall)
+			{
+				nodeForm = nodeForm1;
+				break;
+			}
+		}
+	}
+	return nodeForm;
 }
 
 

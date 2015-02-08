@@ -7,6 +7,7 @@ class StringConstantValueNodeFormBuilder : public NodeFormBuilderTemplate<node::
 {
 public:
 	NodeForm* buildNodeForm(Node* node) const override;
+	void prepareRuntime(NodeForm* nodeForm, NodeRuntime* nodeRuntime) const override;
 };
 
 #endif // STRINGCONSTANTVALUENODEFORMBUILDER_H

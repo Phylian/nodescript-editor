@@ -13,6 +13,7 @@ class NodeFormDragger;
 class ScriptPaintForm;
 class OutputPinForm;
 class InputPinForm;
+class ConstantValueFieldForm;
 
 class NodeForm : public QWidget
 {
@@ -27,13 +28,38 @@ public:
 	void addOutputValuePin(const char* name, PinIndex pinIndex);
 	void addOutputImpulsePin(const char* name, PinIndex pinIndex);
 
-	void addBoolField(const char* name = nullptr);
-	void addIntField(const char* name = nullptr);
-	void addFloatField(const char* name = nullptr);
-	void addStringField(const char* name = nullptr);
-
 	OutputPinForm* getOutputPinForm(PinIndex pinIndex) const;
 	InputPinForm* getInputPinForm(PinIndex pinIndex) const;
+
+	void addFieldToFieldsFrame(QWidget* fieldForm);
+
+	template <class T>
+	void addField(const char* name, bool showName = false)
+	{
+		T* fieldForm = new T(name, showName);
+		addFieldToFieldsFrame(fieldForm);
+	}
+
+	const QObjectList& getFieldsFromFieldsFrame() const;
+
+	template <class T>
+	T* getField(const char* name) const
+	{
+		T* fieldForm = nullptr;
+		for (QObject* child : getFieldsFromFieldsFrame())
+		{
+			if (T* fieldForm1 = dynamic_cast<T*>(child))
+			{
+				if (strcmp(name, fieldForm1->getName()) == 0)
+				{
+					fieldForm = fieldForm1;
+					break;
+				}
+			}
+		}
+		assert(fieldForm);
+		return fieldForm;
+	}
 
 	void mousePressEvent(QMouseEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;

@@ -7,6 +7,7 @@ class DoubleConstantValueNodeFormBuilder : public NodeFormBuilderTemplate<node::
 {
 public:
 	NodeForm* buildNodeForm(Node* node) const override;
+	void prepareRuntime(NodeForm* nodeForm, NodeRuntime* nodeRuntime) const override;
 };
 
 #endif // DOUBLECONSTANTVALUENODEFORMBUILDER_H

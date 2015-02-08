@@ -57,30 +57,6 @@ void NodeForm::addOutputImpulsePin(const char *name, PinIndex pinIndex)
 	ui->outputPinsFrame->layout()->addWidget(outputImpulsePinForm);
 }
 
-void NodeForm::addBoolField(const char* name)
-{
-	BoolFieldForm* boolFieldForm = new BoolFieldForm(name);
-	ui->fieldsFrame->layout()->addWidget(boolFieldForm);
-}
-
-void NodeForm::addIntField(const char* name)
-{
-	IntFieldForm* intFieldForm = new IntFieldForm(name);
-	ui->fieldsFrame->layout()->addWidget(intFieldForm);
-}
-
-void NodeForm::addFloatField(const char* name)
-{
-	FloatFieldForm* floatFieldForm = new FloatFieldForm(name);
-	ui->fieldsFrame->layout()->addWidget(floatFieldForm);
-}
-
-void NodeForm::addStringField(const char* name)
-{
-	StringFieldForm* stringFieldForm = new StringFieldForm(name);
-	ui->fieldsFrame->layout()->addWidget(stringFieldForm);
-}
-
 OutputPinForm* NodeForm::getOutputPinForm(PinIndex pinIndex) const
 {
 	OutputPinForm* outputPinForm = nullptr;
@@ -115,6 +91,16 @@ InputPinForm* NodeForm::getInputPinForm(PinIndex pinIndex) const
 		}
 	}
 	return inputPinForm;
+}
+
+void NodeForm::addFieldToFieldsFrame(QWidget* fieldForm)
+{
+	ui->fieldsFrame->layout()->addWidget(fieldForm);
+}
+
+const QObjectList& NodeForm::getFieldsFromFieldsFrame() const
+{
+	return ui->fieldsFrame->children();
 }
 
 void NodeForm::mousePressEvent(QMouseEvent *event)
