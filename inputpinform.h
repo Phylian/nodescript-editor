@@ -23,14 +23,12 @@ public:
 	void mouseMoveEvent(QMouseEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;
 
-	inline void setLink(NodeLink* link) { assert(!this->link); assert(link); this->link = link; }
+	inline void setLink(NodeLink* link) { assert(!isConnected()); assert(link); this->link = link; }
 	inline void removeLink() { link = nullptr; }
 	inline NodeLink* getLink() const { return link; }
+	inline bool isConnected() const { return link != nullptr; }
 
 	void setLinkDirty();
-
-	void plugLink(NodeLink* link) override;
-	void unplugLink(NodeLink* link) override;
 
 private:
 	NodeLink* link;

@@ -40,9 +40,6 @@ public:
 	inline void setPinIndex(PinIndex pinIndex) { assert(pinIndex != INVALID_PIN_INDEX); assert(this->pinIndex == INVALID_PIN_INDEX); this->pinIndex = pinIndex; }
 	inline PinIndex getPinIndex() const { return pinIndex; }
 
-	virtual void plugLink(NodeLink* link) = 0;
-	virtual void unplugLink(NodeLink* link) = 0;
-
 protected:
 	PinIndex pinIndex;
 };

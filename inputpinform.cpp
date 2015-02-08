@@ -66,14 +66,4 @@ void InputPinForm::setLinkDirty()
 		link->setDirty();
 }
 
-void InputPinForm::plugLink(NodeLink* link)
-{
-	setLink(link);
-}
-
-void InputPinForm::unplugLink(NodeLink* link)
-{
-	assert(this->link == nullptr || this->link == link);
-	removeLink();
-}
 

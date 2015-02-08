@@ -23,8 +23,7 @@ void NodeFormDragger::beginDrag(NodeForm *nodeForm, QPoint offset)
 	assert(this->nodeForm == nullptr);
 	this->nodeForm = nodeForm;
 	this->offset = offset;
-	QCursor cursor(Qt::CursorShape::DragMoveCursor);
-	this->nodeForm->setCursor(cursor);
+	nodeForm->setCursor(Qt::CursorShape::DragMoveCursor);
 }
 
 void NodeFormDragger::drag(QPoint mousePosition)
@@ -47,8 +46,7 @@ void NodeFormDragger::drag(QPoint mousePosition)
 void NodeFormDragger::endDrag()
 {
 	assert(nodeForm != nullptr);
-	QCursor cursor(Qt::CursorShape::ArrowCursor);
-	this->nodeForm->setCursor(cursor);
+	nodeForm->setCursor(Qt::CursorShape::ArrowCursor);
 	nodeForm = nullptr;
 }
 

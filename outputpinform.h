@@ -28,9 +28,6 @@ public:
 
 	void setLinksDirty();
 
-	void plugLink(NodeLink* link) override;
-	void unplugLink(NodeLink* link) override;
-
 private:
 	std::vector<NodeLink*> links;
 };

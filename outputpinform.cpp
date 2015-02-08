@@ -59,14 +59,4 @@ void OutputPinForm::setLinksDirty()
 		link->setDirty();
 }
 
-void OutputPinForm::plugLink(NodeLink* link)
-{
-	addLink(link);
-}
-
-void OutputPinForm::unplugLink(NodeLink* link)
-{
-	removeLink(link);
-}
-
 
