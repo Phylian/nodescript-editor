@@ -25,25 +25,21 @@ void PinForm::moveMouseFromBeginPin(QMouseEvent* event)
 	scriptPaintForm->setCurrentNodeLinkEndPosition(mapTo(scriptPaintForm, event->pos()));
 	if (InputPinForm* inputPinForm = getInputPinFormUnderCursor(event))
 	{
+		const NodeLink& link = scriptPaintForm->getCurrentLink();
 		Script* script = getScript();
-		NodeCall nodeCall1 = getNodeForm()->getNodeCall();
-		NodeCall nodeCall2 = inputPinForm->getNodeForm()->getNodeCall();
-		if (script->isLinkValid(nodeCall1, pinIndex, nodeCall2, inputPinForm->getPinIndex()))
-		{
-			QCursor cursor(Qt::CursorShape::ArrowCursor);
-			setCursor(cursor);
-		}
+		NodeCall nodeCall1 = link.getBeginPinNodeCall();
+		PinIndex outputPinIndex = link.getBeginPinIndex();
+		NodeCall nodeCall2 = inputPinForm->getNodeCall();
+		PinIndex inputPinIndex = inputPinForm->getPinIndex();
+
+		if (script->isLinkValid(nodeCall1, outputPinIndex, nodeCall2, inputPinIndex))
+			setCursor(Qt::CursorShape::ArrowCursor);
+
 		else
-		{
-			QCursor cursor(Qt::CursorShape::ForbiddenCursor);
-			setCursor(cursor);
-		}
+			setCursor(Qt::CursorShape::ForbiddenCursor);
 	}
 	else
-	{
-		QCursor cursor(Qt::CursorShape::ArrowCursor);
-		setCursor(cursor);
-	}
+		setCursor(Qt::CursorShape::ArrowCursor);
 
 	scriptPaintForm->repaint();
 }
@@ -64,25 +60,21 @@ void PinForm::moveMouseFromEndPin(QMouseEvent* event)
 
 	if (OutputPinForm* outputPinForm = getOutputPinFormUnderCursor(event))
 	{
+		const NodeLink& link = scriptPaintForm->getCurrentLink();
 		Script* script = getScript();
-		NodeCall nodeCall1 = outputPinForm->getNodeForm()->getNodeCall();
-		NodeCall nodeCall2 = getNodeForm()->getNodeCall();
-		if (script->isLinkValid(nodeCall1, outputPinForm->getPinIndex(), nodeCall2, pinIndex))
-		{
-			QCursor cursor(Qt::CursorShape::ArrowCursor);
-			setCursor(cursor);
-		}
+		NodeCall nodeCall1 = outputPinForm->getNodeCall();
+		PinIndex outputPinIndex = outputPinForm->getPinIndex();
+		NodeCall nodeCall2 = link.getEndPinNodeCall();
+		PinIndex inputPinIndex = link.getEndPinIndex();
+
+		if (script->isLinkValid(nodeCall1, outputPinIndex, nodeCall2, inputPinIndex))
+			setCursor(Qt::CursorShape::ArrowCursor);
+
 		else
-		{
-			QCursor cursor(Qt::CursorShape::ForbiddenCursor);
-			setCursor(cursor);
-		}
+			setCursor(Qt::CursorShape::ForbiddenCursor);
 	}
 	else
-	{
-		QCursor cursor(Qt::CursorShape::ArrowCursor);
-		setCursor(cursor);
-	}
+		setCursor(Qt::CursorShape::ArrowCursor);
 
 	scriptPaintForm->repaint();
 }
@@ -96,14 +88,17 @@ void PinForm::releaseMouseFromBeginPin(QMouseEvent* event)
 
 	if (InputPinForm* inputPinForm = getInputPinFormUnderCursor(event))
 	{
+		const NodeLink& link = scriptPaintForm->getCurrentLink();
 		Script* script = getScript();
-		NodeCall nodeCall1 = getNodeForm()->getNodeCall();
-		NodeCall nodeCall2 = inputPinForm->getNodeForm()->getNodeCall();
+		NodeCall nodeCall1 = link.getBeginPinNodeCall();
+		PinIndex outputPinIndex = link.getBeginPinIndex();
+		NodeCall nodeCall2 = inputPinForm->getNodeCall();
 		PinIndex inputPinIndex = inputPinForm->getPinIndex();
-		if (script->isLinkValid(nodeCall1, pinIndex, nodeCall2, inputPinIndex))
+
+		if (script->isLinkValid(nodeCall1, outputPinIndex, nodeCall2, inputPinIndex))
 		{
 			scriptPaintForm->setIsDraggingLink(false);
-			getMainWindow()->addLink(nodeCall1, pinIndex, nodeCall2, inputPinIndex);
+			getMainWindow()->addLink(nodeCall1, outputPinIndex, nodeCall2, inputPinIndex);
 		}
 		else
 			abortLinkDragging();
@@ -123,13 +118,17 @@ void PinForm::releaseMouseFromEndPin(QMouseEvent* event)
 
 	if (OutputPinForm* outputPinForm = getOutputPinFormUnderCursor(event))
 	{
+		const NodeLink& link = scriptPaintForm->getCurrentLink();
 		Script* script = getScript();
-		NodeCall nodeCall1 = outputPinForm->getNodeForm()->getNodeCall();
-		NodeCall nodeCall2 = getNodeForm()->getNodeCall();
-		if (script->isLinkValid(nodeCall1, outputPinForm->getPinIndex(), nodeCall2, pinIndex))
+		NodeCall nodeCall1 = outputPinForm->getNodeCall();
+		PinIndex outputPinIndex = outputPinForm->getPinIndex();
+		NodeCall nodeCall2 = link.getEndPinNodeCall();
+		PinIndex inputPinIndex = link.getEndPinIndex();
+
+		if (script->isLinkValid(nodeCall1, outputPinIndex, nodeCall2, inputPinIndex))
 		{
 			scriptPaintForm->setIsDraggingLink(false);
-			getMainWindow()->addLink(nodeCall1, outputPinForm->getPinIndex(), nodeCall2, pinIndex);
+			getMainWindow()->addLink(nodeCall1, outputPinIndex, nodeCall2, inputPinIndex);
 		}
 		else
 			abortLinkDragging();
@@ -158,8 +157,7 @@ void PinForm::abortLinkDragging()
 {
 	ScriptPaintForm* scriptPaintForm = getScriptPaintForm();
 	scriptPaintForm->setIsDraggingLink(false);
-	QCursor cursor(Qt::CursorShape::ArrowCursor);
-	setCursor(cursor);
+	setCursor(Qt::CursorShape::ArrowCursor);
 }
 
 MainWindow* PinForm::getMainWindow() const

@@ -25,6 +25,7 @@ public:
 	void setCurrentNodeLinkEndPosition(QPoint endPosition);
 
 	inline bool isCurrentNodeLinkBeginPinConnected() const { return isDraggingLink && currentNodeLink.getBeginPin() != nullptr; }
+	inline const NodeLink& getCurrentLink() const { return currentNodeLink; }
 
 	void addLink(NodeLink* link);
 	void removeLink(NodeLink* link);
