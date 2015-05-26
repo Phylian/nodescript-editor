@@ -53,7 +53,10 @@ SOURCES += main.cpp\
     constantvaluefieldform.cpp \
     outputpinlineform.cpp \
     inputpinlineform.cpp \
-    pinform.cpp
+    pinform.cpp \
+    essentia-nodes/essentianodes.cpp \
+    essentia-nodes/nodes/monoloadernode.cpp \
+    essentia-nodes/nodes/beattrackermultifeaturenode.cpp
 
 HEADERS  += mainwindow.h \
     nodeform.h \
@@ -101,7 +104,10 @@ HEADERS  += mainwindow.h \
     constantvaluefieldform.h \
     outputpinlineform.h \
     inputpinlineform.h \
-    pinform.h
+    pinform.h \
+    essentia-nodes/essentianodes.h \
+    essentia-nodes/nodes/monoloadernode.h \
+    essentia-nodes/nodes/beattrackermultifeaturenode.h
 
 FORMS    += mainwindow.ui \
     nodeform.ui \
@@ -119,6 +125,15 @@ CONFIG += c++11
 DEFINES += NODESCRIPT_INTROSPECTION=1 \
     NODESCRIPT_VERBOSE=1 \
     NODESCRIPT_DEBUG=1
+
+LIBS += -lessentia \
+    -lavcodec \
+    -lavformat \
+    -lavutil \
+    -lyaml \
+    -lfftw3f \
+    -ltag \
+    -lsamplerate
 
 DISTFILES +=
 

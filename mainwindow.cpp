@@ -5,6 +5,7 @@
 #include "nodeformbuilders/nodeformbuilders.h"
 #include "inputpinform.h"
 #include "outputpinform.h"
+#include "essentia-nodes/essentianodes.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,6 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui(new Ui::MainWindow)
 {
 	ui->setupUi(this);
+
+	essentia::init();
+	registerEssentiaNodes(scriptEngine);
 
 	const std::map<std::string, Node*>& registeredNodes = scriptEngine.getAllRegisteredNodes();
 	script = scriptEngine.newScript();
