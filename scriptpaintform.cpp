@@ -15,7 +15,7 @@ ScriptPaintForm::~ScriptPaintForm()
 
 }
 
-void ScriptPaintForm::paintEvent(QPaintEvent* event)
+void ScriptPaintForm::paintEvent(QPaintEvent* /*event*/)
 {
 	QPainter painter(this);
 	painter.setRenderHint(QPainter::Antialiasing);
@@ -75,6 +75,26 @@ void ScriptPaintForm::removeLink(NodeLink* link)
 	link->disconnectFromBeginPin();
 	link->disconnectFromEndPin();
 	links.erase(it);
+	delete link;
+}
+
+void ScriptPaintForm::removeAllLinks(NodeForm* nodeForm)
+{
+	NodeCall nodeCall = nodeForm->getNodeCall();
+	assert(nodeCall != INVALID_NODE_CALL);
+	for (int i = links.size() - 1; i >= 0; --i)
+	{
+		NodeLink* link = links[i];
+		if (link->getBeginPinNodeCall() == nodeCall || link->getEndPinNodeCall() == nodeCall)
+		{
+			link->disconnectFromBeginPin();
+			link->disconnectFromEndPin();
+			links[i] = links[links.size() - 1];
+			links.pop_back();
+			delete link;
+		}
+	}
+	repaint();
 }
 
 NodeForm* ScriptPaintForm::getNodeForm(NodeCall nodeCall) const

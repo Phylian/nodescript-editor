@@ -25,6 +25,7 @@ public:
 
 	NodeForm* buildNodeFormFromNode(Node* node);
 	void addNodeFormInstance(NodeForm* nodeForm);
+	void removeNodeFormInstance(NodeForm* nodeForm);
 	void addNodeFormTemplate(NodeForm* nodeForm);
 
 	NodeLink* addLink(NodeCall nodeCall1, PinIndex outputPinIndex, NodeCall nodeCall2, PinIndex inputPinIndex);

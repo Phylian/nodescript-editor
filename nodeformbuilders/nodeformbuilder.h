@@ -14,7 +14,7 @@ public:
 
 	virtual const char* getNodeName() const { return "Any Node"; }
 
-	virtual void prepareRuntime(NodeForm* nodeForm, NodeRuntime* nodeRuntime) const {}
+	virtual void prepareRuntime(NodeForm* /*nodeForm*/, NodeRuntime* /*nodeRuntime*/) const {}
 
 protected:
 	NodeForm* buildEmptyNodeForm(Node* node) const;

@@ -33,17 +33,20 @@ void NodeLink::paint(QPainter& painter)
 {
 	updatePath();
 
+	QPen pen;
+	pen.setWidthF(1.8f);
 	if (beginPin)
 	{
-		painter.setPen(beginPin->palette().background().color());
+		pen.setColor(beginPin->palette().background().color());
 	}
 	else if (endPin)
 	{
-		painter.setPen(endPin->palette().background().color());
+		pen.setColor(endPin->palette().background().color());
 	}
 	else
 		assert(false);
 
+	painter.setPen(pen);
 	painter.drawPath(path);
 }
 

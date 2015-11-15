@@ -114,7 +114,7 @@
             <x>0</x>
             <y>0</y>
             <width>198</width>
-            <height>503</height>
+            <height>521</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -243,7 +243,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuEdit">
@@ -277,7 +277,6 @@
    <addaction name="menuEdit"/>
    <addaction name="menuAbout"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen_file">
    <property name="text">
     <string>Open file...</string>

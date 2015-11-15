@@ -60,7 +60,9 @@
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: #95a5a6;
-border: 1px solid #7f8c8d;</string>
+border: 1px solid #7f8c8d;
+border-top-left-radius: 6px;
+border-top-right-radius: 6px;</string>
      </property>
      <property name="text">
       <string>TextLabel</string>
@@ -76,7 +78,11 @@ border: 1px solid #7f8c8d;</string>
    <item>
     <widget class="QFrame" name="fieldsFrame">
      <property name="styleSheet">
-      <string notr="true">#fieldsFrame { border: none; background: #bdc3c7; }</string>
+      <string notr="true">#fieldsFrame
+{
+	border: none;
+	background-color: #bdc3c7;
+}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -112,7 +118,14 @@ border: 1px solid #7f8c8d;</string>
       </sizepolicy>
      </property>
      <property name="styleSheet">
-      <string notr="true">#pinsFrame { border: none; background: #bdc3c7; }</string>
+      <string notr="true">#pinsFrame
+{
+	border: none;
+	border-radius: 0;
+	background-color: #bdc3c7;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -145,7 +158,11 @@ border: 1px solid #7f8c8d;</string>
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">#inputPinsFrame { border: none; }</string>
+         <string notr="true">#inputPinsFrame
+{
+	border: none;
+	border-bottom-left-radius: 6px;
+}</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -181,7 +198,10 @@ border: 1px solid #7f8c8d;</string>
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">#outputPinsFrame { border: none; }</string>
+         <string notr="true">#outputPinsFrame
+{
+	border: none;
+}</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>

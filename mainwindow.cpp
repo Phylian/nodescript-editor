@@ -52,6 +52,13 @@ void MainWindow::addNodeFormInstance(NodeForm *nodeForm)
 	nodeForm->setNodeCall(nodeCall);
 }
 
+void MainWindow::removeNodeFormInstance(NodeForm* nodeForm)
+{
+	script->removeNode(nodeForm->getNodeCall());
+	ui->scriptFrame->removeAllLinks(nodeForm);
+	delete nodeForm;
+}
+
 void MainWindow::addNodeFormTemplate(NodeForm *nodeForm)
 {
 	nodeForm->disableFields();
@@ -84,7 +91,6 @@ void MainWindow::removeLink(NodeLink* link)
 	PinIndex inputPinIndex = link->getEndPinIndex();
 	script->removeLink(nodeCall1, outputPinIndex, nodeCall2, inputPinIndex);
 	ui->scriptFrame->removeLink(link);
-	delete link;
 }
 
 void MainWindow::executeScript()

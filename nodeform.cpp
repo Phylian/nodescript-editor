@@ -109,7 +109,7 @@ void NodeForm::mousePressEvent(QMouseEvent *event)
 		nodeFormDragger->beginDrag(this, event->pos());
 }
 
-void NodeForm::mouseReleaseEvent(QMouseEvent *event)
+void NodeForm::mouseReleaseEvent(QMouseEvent* /*event*/)
 {
 	if (nodeFormDragger)
 		nodeFormDragger->endDrag();
@@ -121,14 +121,18 @@ void NodeForm::mouseMoveEvent(QMouseEvent *event)
 		nodeFormDragger->drag(event->pos());
 }
 
-void NodeForm::mouseDoubleClickEvent(QMouseEvent* event)
+void NodeForm::mouseDoubleClickEvent(QMouseEvent* /*event*/)
 {
+	MainWindow* mainWindow = dynamic_cast<MainWindow*>(window());
+	assert(mainWindow);
 	if (nodeCall == INVALID_NODE_CALL)
 	{
-		MainWindow* mainWindow = dynamic_cast<MainWindow*>(window());
-		assert(mainWindow);
 		NodeForm* nodeForm = mainWindow->buildNodeFormFromNode(node);
 		mainWindow->addNodeFormInstance(nodeForm);
+	}
+	else
+	{
+		mainWindow->removeNodeFormInstance(this);
 	}
 }
 

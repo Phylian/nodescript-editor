@@ -30,6 +30,7 @@ public:
 
 	void addLink(NodeLink* link);
 	void removeLink(NodeLink* link);
+	void removeAllLinks(NodeForm* nodeForm);
 
 	NodeForm* getNodeForm(NodeCall nodeCall) const;
 

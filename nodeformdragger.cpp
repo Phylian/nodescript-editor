@@ -17,7 +17,7 @@ NodeFormDragger::~NodeFormDragger()
 
 }
 
-void NodeFormDragger::beginDrag(NodeForm *nodeForm, QPoint offset)
+void NodeFormDragger::beginDrag(NodeForm* nodeForm, QPoint offset)
 {
 	assert(nodeForm != nullptr);
 	assert(this->nodeForm == nullptr);
@@ -28,25 +28,29 @@ void NodeFormDragger::beginDrag(NodeForm *nodeForm, QPoint offset)
 
 void NodeFormDragger::drag(QPoint mousePosition)
 {
-	assert(nodeForm != nullptr);
-	QPoint position = nodeForm->mapToParent(mousePosition - offset);
-	if (snapToGrid)
+	if (nodeForm != nullptr)
 	{
-		const int gridCellSize = 20;
-		position = QPoint(
-			round(static_cast<float>(position.x()) / gridCellSize) * gridCellSize,
-			round(static_cast<float>(position.y()) / gridCellSize) * gridCellSize
-		);
+		QPoint position = nodeForm->mapToParent(mousePosition - offset);
+		if (snapToGrid)
+		{
+			const int gridCellSize = 20;
+			position = QPoint(
+						round(static_cast<float>(position.x()) / gridCellSize) * gridCellSize,
+						round(static_cast<float>(position.y()) / gridCellSize) * gridCellSize
+						);
+		}
+		nodeForm->move(position);
+		nodeForm->setLinksDirty();
+		nodeForm->getScriptPaintForm()->repaint();
 	}
-	nodeForm->move(position);
-	nodeForm->setLinksDirty();
-	nodeForm->getScriptPaintForm()->repaint();
 }
 
 void NodeFormDragger::endDrag()
 {
-	assert(nodeForm != nullptr);
-	nodeForm->setCursor(Qt::CursorShape::ArrowCursor);
-	nodeForm = nullptr;
+	if (nodeForm != nullptr)
+	{
+		nodeForm->setCursor(Qt::CursorShape::ArrowCursor);
+		nodeForm = nullptr;
+	}
 }
 
