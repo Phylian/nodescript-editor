@@ -34,7 +34,7 @@ void NodeLink::paint(QPainter& painter)
 	updatePath();
 
 	QPen pen;
-	pen.setWidthF(1.8f);
+	pen.setWidth(4);
 	if (beginPin)
 	{
 		pen.setColor(beginPin->palette().background().color());

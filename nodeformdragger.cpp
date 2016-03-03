@@ -1,56 +1,72 @@
 #include "nodeformdragger.h"
 #include "scriptpaintform.h"
+#include "nodeform.h"
+#include "mainwindow.h"
 
 #include <cassert>
 
-#include "nodeform.h"
 
 NodeFormDragger::NodeFormDragger() :
-	nodeForm(nullptr),
-	snapToGrid(false)
+	mainWindow(nullptr),
+	snapToGrid(false),
+	mouseMoved(false)
 {
 
 }
 
-NodeFormDragger::~NodeFormDragger()
+NodeFormSelection& NodeFormDragger::getNodeFormSelection()
 {
-
+	return mainWindow->getNodeFormSelection();
 }
 
-void NodeFormDragger::beginDrag(NodeForm* nodeForm, QPoint offset)
+ScriptPaintForm* NodeFormDragger::getScriptPaintForm()
 {
-	assert(nodeForm != nullptr);
-	assert(this->nodeForm == nullptr);
-	this->nodeForm = nodeForm;
-	this->offset = offset;
-	nodeForm->setCursor(Qt::CursorShape::DragMoveCursor);
+	return mainWindow->getScriptPaintForm();
+}
+
+void NodeFormDragger::beginDrag(QPoint mousePosition)
+{
+	mouseMoved = false;
+	NodeFormSelection& nodeFormSelection = getNodeFormSelection();
+	const std::vector<NodeForm*>& selectedNodes = nodeFormSelection.getSelectedNodes();
+	offsets.clear();
+	offsets.reserve(selectedNodes.size());
+	for (NodeForm* nodeForm : selectedNodes)
+	{
+		offsets.push_back(nodeForm->pos() - mousePosition);
+	}
+	std::cout << "beginDrag/" << offsets.size() << std::endl;
 }
 
 void NodeFormDragger::drag(QPoint mousePosition)
 {
-	if (nodeForm != nullptr)
+	if (!offsets.empty())
 	{
-		QPoint position = nodeForm->mapToParent(mousePosition - offset);
+		mouseMoved = true;
+		NodeFormSelection& nodeFormSelection = getNodeFormSelection();
+		const std::vector<NodeForm*> selectedNodes = nodeFormSelection.getSelectedNodes();
+		assert(offsets.size() == selectedNodes.size());
 		if (snapToGrid)
 		{
 			const int gridCellSize = 20;
-			position = QPoint(
-						round(static_cast<float>(position.x()) / gridCellSize) * gridCellSize,
-						round(static_cast<float>(position.y()) / gridCellSize) * gridCellSize
+			mousePosition = QPoint(
+						round(static_cast<float>(mousePosition.x()) / gridCellSize) * gridCellSize,
+						round(static_cast<float>(mousePosition.y()) / gridCellSize) * gridCellSize
 						);
 		}
-		nodeForm->move(position);
-		nodeForm->setLinksDirty();
-		nodeForm->getScriptPaintForm()->repaint();
+		for (unsigned int i = 0; i < selectedNodes.size(); ++i)
+		{
+			NodeForm* nodeForm = selectedNodes[i];
+			nodeForm->move(mousePosition + offsets[i]);
+			nodeForm->setLinksDirty();
+		}
+
+		getScriptPaintForm()->repaint();
 	}
 }
 
 void NodeFormDragger::endDrag()
 {
-	if (nodeForm != nullptr)
-	{
-		nodeForm->setCursor(Qt::CursorShape::ArrowCursor);
-		nodeForm = nullptr;
-	}
+	offsets.clear();
 }
 

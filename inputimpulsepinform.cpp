@@ -6,7 +6,7 @@ InputImpulsePinForm::InputImpulsePinForm(const char* name, PinIndex pinIndex) :
 	ui(new Ui::InputImpulsePinForm)
 {
 	ui->setupUi(this);
-	ui->label->setText(name);
+	ui->inputLabel->setText(name);
 	ui->pin->setPinIndex(pinIndex);
 }
 

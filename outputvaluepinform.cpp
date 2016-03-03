@@ -6,7 +6,7 @@ OutputValuePinForm::OutputValuePinForm(const char* name, PinIndex pinIndex) :
 	ui(new Ui::OutputValuePinForm)
 {
 	ui->setupUi(this);
-	ui->label->setText(name);
+	ui->outputLabel->setText(name);
 	ui->pin->setPinIndex(pinIndex);
 }
 

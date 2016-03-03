@@ -1,6 +1,7 @@
 #include "inputpinform.h"
 #include "nodeform.h"
 #include "scriptpaintform.h"
+#include "mainwindow.h"
 #include <QPainter>
 
 ScriptPaintForm::ScriptPaintForm(QWidget *parent) : QFrame(parent),
@@ -112,6 +113,22 @@ NodeForm* ScriptPaintForm::getNodeForm(NodeCall nodeCall) const
 		}
 	}
 	return nodeForm;
+}
+
+void ScriptPaintForm::mousePressEvent(QMouseEvent* /*event*/)
+{
+	getNodeFormSelection().removeAll();
+}
+
+MainWindow& ScriptPaintForm::getMainWindow() const
+{
+	assert(dynamic_cast<MainWindow*>(window()));
+	return static_cast<MainWindow&>(*window());
+}
+
+NodeFormSelection& ScriptPaintForm::getNodeFormSelection() const
+{
+	return getMainWindow().getNodeFormSelection();
 }
 
 

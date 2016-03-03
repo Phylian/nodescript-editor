@@ -9,7 +9,9 @@ namespace Ui {
 class NodeForm;
 }
 
+class MainWindow;
 class NodeFormDragger;
+class NodeFormSelection;
 class ScriptPaintForm;
 class OutputPinForm;
 class InputPinForm;
@@ -69,8 +71,10 @@ public:
 
 	void fillBlanks();
 
-	inline void setNodeDragger(NodeFormDragger* nodeDragger) { this->nodeFormDragger = nodeDragger; }
-	ScriptPaintForm* getScriptPaintForm();
+	ScriptPaintForm* getScriptPaintForm() const;
+	MainWindow* getMainWindow() const;
+	NodeFormDragger* getNodeFormDragger() const;
+	NodeFormSelection& getNodeFormSelection() const;
 
 	void setLinksDirty();
 
@@ -81,13 +85,17 @@ public:
 	inline void setNodeCall(NodeCall nodeCall) { assert(nodeCall != INVALID_NODE_CALL); assert(this->nodeCall == INVALID_NODE_CALL); this->nodeCall = nodeCall; }
 	inline NodeCall getNodeCall() const { return nodeCall; }
 
+	void setSelected(bool selected);
+	inline bool isSelected() const { return selected; }
+
 private:
 
 	Ui::NodeForm *ui;
-	NodeFormDragger* nodeFormDragger;
 	Node* node;
 	NodeCall nodeCall;
+	bool selected;
 
+	static QString stylesheet;
 };
 
 #endif // NODEFORM_H

@@ -6,7 +6,7 @@ InputValuePinForm::InputValuePinForm(const char* name, PinIndex pinIndex) :
 	ui(new Ui::InputValuePinForm)
 {
 	ui->setupUi(this);
-	ui->label->setText(name);
+	ui->inputLabel->setText(name);
 	ui->pin->setPinIndex(pinIndex);
 }
 

@@ -17,15 +17,23 @@
 #include "mainwindow.h"
 #include "outputpinform.h"
 #include "inputpinform.h"
+#include "nodeformselection.h"
+
+QString NodeForm::stylesheet;
 
 NodeForm::NodeForm(Node* node) :
 	ui(new Ui::NodeForm),
-	nodeFormDragger(nullptr),
 	node(node),
-	nodeCall(INVALID_NODE_CALL)
+	nodeCall(INVALID_NODE_CALL),
+	selected(false)
 {
 	ui->setupUi(this);
-	ui->label->setText(node->getNodeName());
+	ui->nodeLabel->setText(node->getNodeName());
+
+	if (stylesheet.size() == 0)
+	{
+		stylesheet = styleSheet();
+	}
 }
 
 NodeForm::~NodeForm()
@@ -105,26 +113,44 @@ const QObjectList& NodeForm::getFieldsFromFieldsFrame() const
 
 void NodeForm::mousePressEvent(QMouseEvent *event)
 {
-	if (nodeFormDragger)
-		nodeFormDragger->beginDrag(this, event->pos());
+	if (NodeFormDragger* dragger = getNodeFormDragger())
+	{
+		NodeFormSelection& selection = getNodeFormSelection();
+		bool ctrlPressed = (QApplication::queryKeyboardModifiers() & Qt::ControlModifier) == Qt::ControlModifier;
+		if (!ctrlPressed)
+			selection.removeAll();
+
+		if (isSelected())
+			selection.remove(this);
+
+		else
+			selection.add(this);
+
+		ScriptPaintForm* scriptPaintForm = getScriptPaintForm();
+		dragger->beginDrag(mapTo(scriptPaintForm, event->pos()));
+	}
 }
 
 void NodeForm::mouseReleaseEvent(QMouseEvent* /*event*/)
 {
-	if (nodeFormDragger)
+	if (NodeFormDragger* nodeFormDragger = getNodeFormDragger())
+	{
 		nodeFormDragger->endDrag();
+	}
 }
 
 void NodeForm::mouseMoveEvent(QMouseEvent *event)
 {
-	if (nodeFormDragger)
-		nodeFormDragger->drag(event->pos());
+	if (NodeFormDragger* nodeFormDragger = getNodeFormDragger())
+	{
+		ScriptPaintForm* scriptPaintForm = getScriptPaintForm();
+		nodeFormDragger->drag(mapTo(scriptPaintForm, event->pos()));
+	}
 }
 
 void NodeForm::mouseDoubleClickEvent(QMouseEvent* /*event*/)
 {
-	MainWindow* mainWindow = dynamic_cast<MainWindow*>(window());
-	assert(mainWindow);
+	MainWindow* mainWindow = getMainWindow();
 	if (nodeCall == INVALID_NODE_CALL)
 	{
 		NodeForm* nodeForm = mainWindow->buildNodeFormFromNode(node);
@@ -146,11 +172,29 @@ void NodeForm::fillBlanks()
 	ui->outputPinsFrame->layout()->addWidget(outputPinsFiller);
 }
 
-ScriptPaintForm* NodeForm::getScriptPaintForm()
+ScriptPaintForm* NodeForm::getScriptPaintForm() const
 {
-	ScriptPaintForm* scriptPaintForm = dynamic_cast<ScriptPaintForm*>(parent());
-	assert(scriptPaintForm);
-	return scriptPaintForm;
+	assert(dynamic_cast<ScriptPaintForm*>(parent()));
+	return static_cast<ScriptPaintForm*>(parent());
+}
+
+MainWindow* NodeForm::getMainWindow() const
+{
+	assert(dynamic_cast<MainWindow*>(window()));
+	return static_cast<MainWindow*>(window());
+}
+
+NodeFormDragger* NodeForm::getNodeFormDragger() const
+{
+	if (nodeCall == INVALID_NODE_CALL)
+		return nullptr;
+
+	return &getMainWindow()->getNodeFormDragger();
+}
+
+NodeFormSelection& NodeForm::getNodeFormSelection() const
+{
+	return getMainWindow()->getNodeFormSelection();
 }
 
 void NodeForm::setLinksDirty()
@@ -186,6 +230,19 @@ void NodeForm::disableFields()
 	{
 		if (ConstantValueFieldForm* constantValueFieldForm = dynamic_cast<ConstantValueFieldForm*>(child))
 			constantValueFieldForm->disableField();
+	}
+}
+
+void NodeForm::setSelected(bool selected)
+{
+	this->selected = selected;
+	if (selected)
+	{
+		setStyleSheet("#nodeLabel { font-weight: bold; }");
+	}
+	else
+	{
+		setStyleSheet("");
 	}
 }
 

@@ -6,7 +6,7 @@ OutputImpulsePinForm::OutputImpulsePinForm(const char* name, PinIndex pinIndex) 
 	ui(new Ui::OutputImpulsePinForm)
 {
 	ui->setupUi(this);
-	ui->label->setText(name);
+	ui->outputLabel->setText(name);
 	ui->pin->setPinIndex(pinIndex);
 }
 

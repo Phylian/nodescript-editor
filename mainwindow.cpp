@@ -25,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
 		NodeForm* nodeForm = buildNodeFormFromNode(node.second);
 		addNodeFormTemplate(nodeForm);
 	}
+
+	nodeFormDragger.setMainWindow(this);
+	nodeFormSelection.setMainWindow(this);
 }
 
 MainWindow::~MainWindow()
@@ -43,7 +46,6 @@ NodeForm* MainWindow::buildNodeFormFromNode(Node* node)
 
 void MainWindow::addNodeFormInstance(NodeForm *nodeForm)
 {
-	nodeForm->setNodeDragger(&nodeFormDragger);
 	nodeForm->setParent(ui->scriptFrame);
 	nodeForm->move(100, 100);
 	nodeForm->show();
@@ -54,6 +56,7 @@ void MainWindow::addNodeFormInstance(NodeForm *nodeForm)
 
 void MainWindow::removeNodeFormInstance(NodeForm* nodeForm)
 {
+	nodeFormSelection.remove(nodeForm);
 	script->removeNode(nodeForm->getNodeCall());
 	ui->scriptFrame->removeAllLinks(nodeForm);
 	delete nodeForm;
@@ -108,6 +111,11 @@ void MainWindow::executeScript()
 	}
 	scriptRuntime->execute();
 	delete scriptRuntime;
+}
+
+ScriptPaintForm* MainWindow::getScriptPaintForm() const
+{
+	return ui->scriptFrame;
 }
 
 NodeForm* MainWindow::getNodeInstanceForm(NodeCall nodeCall)

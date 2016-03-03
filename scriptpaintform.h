@@ -7,6 +7,8 @@
 
 class OutputPinForm;
 class NodeForm;
+class MainWindow;
+class NodeFormSelection;
 
 class ScriptPaintForm : public QFrame
 {
@@ -34,7 +36,12 @@ public:
 
 	NodeForm* getNodeForm(NodeCall nodeCall) const;
 
+	void mousePressEvent(QMouseEvent* event) override;
+
 private:
+	MainWindow& getMainWindow() const;
+	NodeFormSelection& getNodeFormSelection() const;
+
 	std::vector<NodeLink*> links;
 
 	NodeLink currentNodeLink;
